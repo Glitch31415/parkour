@@ -260,7 +260,8 @@ wait(0.01)
 c.Visible = true
 end
 CreateGui()
- 
+repeat wait() until player.Character
+local char = player.Character
 player.CharacterAdded:connect(function()
 print("hi")
 char = player.Character
