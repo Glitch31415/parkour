@@ -262,6 +262,7 @@ end
 CreateGui()
  
 player.CharacterAdded:connect(function()
+print("hi")
 char = player.Character
 Torsoz = char:WaitForChild("Torso")
 RA = char:findFirstChild("Right Arm")
