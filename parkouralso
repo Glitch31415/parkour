@@ -6,6 +6,7 @@ local char = player.Character
 wait(1)
 local gp
 local Torsoz = char:findFirstChild("Torso")
+print(Torsoz)
 local RA = char:findFirstChild("Right Arm")
 local LA = char:findFirstChild("Left Arm")
 local RL = char:findFirstChild("Right Leg")
