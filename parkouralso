@@ -1,4 +1,4 @@
-print("waiting for " + game.Players.LocalPlayer.Name)
+print("waiting for " .. game.Players.LocalPlayer.Name)
 repeat wait() until game.Players.LocalPlayer.Character
 script.Parent = game.Players.LocalPlayer.Character
 print("i waited")
