@@ -1,4 +1,4 @@
-local jcharge = false
+1local jcharge = false
 local chg = 0
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
@@ -1277,7 +1277,7 @@ end
  
 function KD(key)
 if pause.Value == false then
-if key == string.char(69) then
+if key == string.char(101) then
 jcharge = true
 end
 if key == string.char(32) then
@@ -1384,7 +1384,7 @@ end
 end
  
 function KU(key)
-if key == string.char(69) then
+if key == string.char(101) then
 jcharge = false
 end
 if key == string.char(32) then
