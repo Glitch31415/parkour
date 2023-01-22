@@ -1493,7 +1493,7 @@ Shift = false
 stamina = 0
 end
 if Action == "Standing" then
-animspeed = 0.2
+animspeed = 0.4
 SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/4.85,0,0))
 SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/4.85,0,0))
 SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(animangle/3.5,0,0))
@@ -1509,14 +1509,14 @@ else
 stamina = maxstamina
 end
 if Action == "Standing" then
-animspeed = 0.15
+animspeed = 0.3
 SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/7,0,0))
 SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/7,0,0))
 SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(animangle/5,0,0))
 SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new(-animangle/5,0,0))
 end
 elseif Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude < 2 then
-animspeed = 0.025
+animspeed = 0.05
 if Action == "Standing" then
 SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/38,0,0))
 SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/38,0,0))
@@ -1541,7 +1541,7 @@ if hitz == nil then
 if Torsoz.Velocity.y > 1 or (Torsoz.Velocity.y < -1 and Torsoz.Velocity.y > -90) then
 if Action == "Standing" then
 GravAction = "Rising"
-animspeed = 0.025
+animspeed = 0.05
 SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/38,0,0))
 SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/38,0,0))
 SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new((math.pi-0.2)+(animangle/30),0,0))
@@ -1564,7 +1564,7 @@ if Torsoz.Velocity.y < -90 then
 if Action == "Standing" then
 GravAction = "Falling"
 Hu.WalkSpeed = 0
-animspeed = 0.25
+animspeed = 0.5
 animatebg.Parent = Torsoz
 animatebg.maxTorque = Vector3.new(1/0,10000,1/0)
 local lokvec = Torsoz.CFrame.lookVector*100
