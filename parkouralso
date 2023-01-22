@@ -1,3 +1,8 @@
+game.Players.LocalPlayer.CharacterAdded:connect(function()
+	print("bye")
+	script.Disabled = true
+	script:Destroy()
+end)
 print("waiting for " .. game.Players.LocalPlayer.Name)
 script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 print("i waited")
@@ -265,11 +270,6 @@ function CreateGui()
 	c.Visible = true
 end
 CreateGui()
-
-player.CharacterAdded:connect(function()
-	script.Disabled = true
-	script:Destroy()
-end)
 
 function RAY(pos, dir, startpos, endpos, distleft, collidedlist)
 	collidedlist = collidedlist or {char}
