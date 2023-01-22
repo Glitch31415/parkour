@@ -54,7 +54,7 @@ local Joint1, Joint2, Joint3, Joint4, Joint5
 
 for i, v in pairs(char:children()) do
 	if (v.className == "LocalScript" and v.Name == "ParkourSkrip") or v.className == "NumberValue" or v.className == "BoolValue" or v.className == "Model" or v.Name == "Animate" then
-		v:remove()
+		v:Destroy()
 	end
 end
 
@@ -270,21 +270,8 @@ end
 CreateGui()
 
 player.CharacterAdded:connect(function()
-	char = player.Character
-	Torsoz = char:findFirstChild("Torso")
-	RA = char:findFirstChild("Right Arm")
-	LA = char:findFirstChild("Left Arm")
-	RL = char:findFirstChild("Right Leg")
-	LL = char:findFirstChild("Left Leg")
-	H = char:findFirstChild("Head")
-	Hu = char:findFirstChild("Humanoid")
-	RS = Torsoz:findFirstChild("Right Shoulder")
-	LS = Torsoz:findFirstChild("Left Shoulder")
-	RH = Torsoz:findFirstChild("Right Hip")
-	LH = Torsoz:findFirstChild("Left Hip")
-	N = Torsoz:findFirstChild("Neck")
-	stamina = maxstamina
-	CreateGui()
+	script.Disabled = true
+	script:Destroy()
 end)
 
 function RAY(pos, dir, startpos, endpos, distleft, collidedlist)
