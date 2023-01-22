@@ -1277,8 +1277,9 @@ end
  
 function KD(key)
 if pause.Value == false then
-if key == string.char(101) then
+if key == "e" then
 jcharge = true
+tch.Text = chg
 end
 if key == string.char(32) then
 Space = true
@@ -1384,8 +1385,9 @@ end
 end
  
 function KU(key)
-if key == string.char(101) then
+if key == "e" then
 jcharge = false
+tch.Text = chg
 end
 if key == string.char(32) then
 Space = false
@@ -1512,14 +1514,16 @@ elseif HWallRunning == "Jumping" then
 GravPoint = GravPoint - 1.7
 end
 ----------------------------- stamina ----------------------------------------
-tch.Text = chg
+
 if jcharge == true then
 if chg < 100 then
 chg = chg + 1
+tch.Text = chg
 end
 else
 if chg > 0 then
 chg = chg - 1
+tch.Text = chg
 end
 end
 if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 18 or Vector3.new(0, Torsoz.Velocity.y, 0).magnitude > 0 and Shift == true then
