@@ -1493,6 +1493,9 @@ game:service("RunService").Stepped:connect(function()
 	if stamina < maxstamina then
 		stamina = stamina + 0.5
 	end
+	if stamina < 1 then
+		Shift = false
+	end
 	if Shift == true then
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
