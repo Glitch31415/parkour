@@ -512,7 +512,7 @@ end
 Torsoz.Velocity = NV
  
 Stand()
-DivingCooldown = 9
+DivingCooldown = 0
 end
  
 function FindSurface(part, position)
@@ -658,7 +658,7 @@ else
 Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 Torsoz.Velocity = NV
-HWRCooldown = 8
+HWRCooldown = 0
 break
 end
 end
@@ -670,7 +670,7 @@ else
 Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 Torsoz.Velocity = NV
-HWRCooldown = 8
+HWRCooldown = 0
 break
 end
  
@@ -679,7 +679,7 @@ if hitz3 ~= nil and hitz3.CanCollide == true then
 Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 Torsoz.Velocity = NV
-HWRCooldown = 8
+HWRCooldown = 0
 break
 end
  
@@ -710,7 +710,7 @@ end
 end
  
 if HWallRunning == "Jumping" then
-HWRCooldown = 6
+HWRCooldown = 0
 joint1.C1 = CFrame.new(0,0.5,0)
  
 joint2.C1 = CFrame.new(0,0.5,0)
@@ -765,8 +765,8 @@ collidecount = collidecount + 1
 if collidecount == 4 then
 Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir2) * CFrame.new(0,0,0.4)
 Torsoz.Velocity = Vector3.new(0,Torsoz.Velocity.y,0)
-HWRCooldown = 5
-VWRCooldown = 5
+HWRCooldown = 0
+VWRCooldown = 0
 wait(0.02)
 break
 end
@@ -1246,7 +1246,7 @@ Torsoz.CFrame = CFrame.new(enz, enz+dir) + Vector3.new(0,3,0)
 end
 bv:remove()
 bg:remove()
-SlideCooldown = 10
+SlideCooldown = 0
 Stand()
 end
  
@@ -1655,11 +1655,11 @@ flow.Value = flow.Value + 0.24
 if flow.Value > 100 then
 flow.Value = 100
 end
-flowcooldown = 40
+flowcooldown = 0
 elseif Action == "Diving" then
-flowcooldown = 30
+flowcooldown = 0
 elseif Action == "Sliding" then
-flowcooldown = 15
+flowcooldown = 0
 elseif Action == "Standing" or Action == "Sitting" then
 if flow.Value > 0 and flowcooldown <= 0 then
 flow.Value = flow.Value - 0.37
