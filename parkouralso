@@ -1,5 +1,7 @@
+print("waiting")
 repeat wait() until game.Workspace[game.Players.LocalPlayer.Name]
 script.Parent = game.Workspace[game.Players.LocalPlayer.Name]
+print("i waited")
 local player = game.Players.LocalPlayer
 vwrc = 0
 local abort = false
