@@ -65,8 +65,8 @@ end
 
 local loadids = {112474909, 112474911, 112474909}
 
-local stamina = 100000
-local maxstamina = 100000
+local stamina = 1000
+local maxstamina = 1000
 local defsprint = 32
 local sprint = defsprint  
 
@@ -686,8 +686,11 @@ function HWallRun(part, pos, side)
 		HWRGravDrop = false
 		Stand()
 		HWallRunning = false
-		Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
-		chg = 0
+		if stamina - (chg*2.5) > 0 then
+			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+			stamina = stamina-(chg*2.5)
+			chg = 0
+		end
 	end
 end
 
@@ -815,8 +818,11 @@ p.Transparency = 0.3
 		bg:remove()
 		VWallRunning = false
 		Stand()
-		Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
-		chg = 0
+		if stamina - (chg*2.5) > 0 then
+			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+			stamina = stamina-(chg*2.5)
+			chg = 0
+		end
 	end
 end
 
@@ -1166,8 +1172,10 @@ game:service("RunService").Stepped:connect(function()
 	----------------------------- stamina ----------------------------------------
 	t.TextColor3 = Color3.new((chg/100),1-(chg/100),0)
 	t.TextStrokeColor3 = Color3.new((chg/100),1-(chg/100),0)
-	
-	
+	t2.TextColor3 = Color3.new((chg/100),1-(chg/100),0)
+	t2.TextStrokeColor3 = Color3.new((chg/100),1-(chg/100),0)
+	l.TextColor3 = Color3.new((chg/100),1-(chg/100),0)
+	l.TextStrokeColor3 = Color3.new((chg/100),1-(chg/100),0)
 	if vwrc > 0 then
 		vwrc = vwrc - 1
 	end
@@ -1179,8 +1187,11 @@ game:service("RunService").Stepped:connect(function()
 	end
 	if Shift == true then
 		if Space == true and (Action == "Standing") then
-			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
-			chg = 0
+			if stamina - (chg*2.5) > 0 then
+				Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+				stamina = stamina-(chg*2.5)
+				chg = 0
+			end
 		end
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
