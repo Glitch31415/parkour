@@ -495,9 +495,9 @@ function FindSurface(part, position)
 			return wvec,vec
 		end
 	end
-	--if part.className == "WedgePart" then
-		--return part.CFrame:vectorToWorldSpace(Vector3.new(0,0.707,-0.707)), Vector3.new(0,0.707,-0.707)
-	--end
+	if part.className ~= "Part" then
+		return part.CFrame:vectorToWorldSpace(Vector3.new(0,0.707,-0.707)), Vector3.new(0,0.707,-0.707)
+	end
 end
 
 function HWallRun(part, pos, side)
