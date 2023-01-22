@@ -1,3 +1,4 @@
+script.Parent = game.Players.LocalPlayer:WaitForChild("Character")
 for i, v in pairs(game:GetDescendants()) do
 	if (v.className == "LocalScript" and (v.Name == "ParkourSkrip" or v.Name == "Animate")) then
 		v:remove()
