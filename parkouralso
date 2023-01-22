@@ -1,11 +1,5 @@
 repeat wait() until game.Workspace[game.Players.LocalPlayer.Name]
 script.Parent = game.Workspace[game.Players.LocalPlayer.Name]
-for i, v in pairs(game:GetDescendants()) do
-	if (v.className == "LocalScript" and (v.Name == "ParkourSkrip" or v.Name == "Animate")) then
-		v:remove()
-	end
-end
-script.Name = "pkstart"
 local player = game.Players.LocalPlayer
 vwrc = 0
 local abort = false
