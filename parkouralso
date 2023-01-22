@@ -227,7 +227,7 @@ function CreateGui()
 	t.TextColor3 = Color3.new((chg/100),1-(chg/100),0)
 	t.TextStrokeColor3 = Color3.new((chg/100),1-(chg/100),0)
 	t.TextStrokeTransparency = 0.3
-	t.FontSize = 6
+	t.FontSize = 12
 	t.BackgroundTransparency = 1
 	t2 = t:Clone()
 	t2.Parent = c
