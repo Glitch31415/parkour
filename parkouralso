@@ -691,6 +691,10 @@ function HWallRun(part, pos, side)
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
 			chg = 0
+		else
+			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+			stamina = 0
+			chg = 0
 		end
 	end
 end
@@ -822,6 +826,10 @@ p.Transparency = 0.3
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
+			chg = 0
+		else
+			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+			stamina = 0
 			chg = 0
 		end
 	end
@@ -1191,6 +1199,10 @@ game:service("RunService").Stepped:connect(function()
 			if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
+				chg = 0
+			else
+				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+				stamina = 0
 				chg = 0
 			end
 		end
