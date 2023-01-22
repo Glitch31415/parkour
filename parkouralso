@@ -1277,7 +1277,7 @@ end
  
 function KD(key)
 if pause.Value == false then
-if key == "e" then
+if key == string.char(101) then
 jcharge = true
 tch.Text = chg
 end
@@ -1385,7 +1385,7 @@ end
 end
  
 function KU(key)
-if key == "e" then
+if key == string.char(101) then
 jcharge = false
 tch.Text = chg
 end
