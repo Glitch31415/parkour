@@ -1,3 +1,5 @@
+local jcharge = false
+local chg = 0
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 local cam = workspace.CurrentCamera
@@ -194,6 +196,8 @@ end
 end
 local g = Instance.new("ScreenGui", player.PlayerGui)
 g.Name = "staminaGui"
+local ch = Instance.new("ScreenGui", player.PlayerGui)
+ch.Name = "chGui"
  
 local c = Instance.new("Frame", g)
 c.Visible = false
@@ -201,7 +205,12 @@ c.Size = UDim2.new(0,86,0,320)
 c.BackgroundTransparency = 1
 c.Position = UDim2.new(1,-96,0.5,-160)
 c.Name = "Container"
- 
+local chc = Instance.new("Frame", g)
+chc.Visible = true
+chc.Size = UDim2.new(0, 150, 0, 50)
+chc.BackgroundTransparency = 0
+chc.Position = UDim2.new(0.5, 0, 0, 200)
+chc.Name = "chcon"
 local t = Instance.new("TextLabel", c)
 t.Size = UDim2.new(0,0,-0.1,0)
 t.Position = UDim2.new(0.3,0,0.5,0)
@@ -220,7 +229,18 @@ local l = t:Clone()
 l.Parent = c
 l.Size = UDim2.new(0,0,0,0)
 l.Text = "-----"
- 
+local tch = Instance.new("TextLabel", chc)
+tch.Size = UDim2.new(1,0,1,0)
+tch.Position = UDim2.new(0.5,0,0.5,0)
+tch.TextXAlignment = "Right"
+tch.Font = "ArialBold"
+tch.TextTransparency = 0
+tch.TextColor3 = Color3.new(0,0,0)
+tch.TextStrokeColor3 = Color3.new(0,0,0)
+tch.TextStrokeTransparency = 0
+tch.FontSize = 10
+tch.BackgroundTransparency = 1
+tch.Text = "test"
 local f1 = Instance.new("Frame", c)
 f1.Name = "Backing"
 f1.ClipsDescendants = true
@@ -1257,6 +1277,9 @@ end
  
 function KD(key)
 if pause.Value == false then
+if key == string.char(69) then
+jcharge = true
+end
 if key == string.char(32) then
 Space = true
  
@@ -1361,6 +1384,9 @@ end
 end
  
 function KU(key)
+if key == string.char(69) then
+jcharge = false
+end
 if key == string.char(32) then
 Space = false
 elseif key == string.char(48) then
@@ -1486,6 +1512,15 @@ elseif HWallRunning == "Jumping" then
 GravPoint = GravPoint - 1.7
 end
 ----------------------------- stamina ----------------------------------------
+if jcharge == true then
+if chg < 100 then
+chg = chg + 1
+end
+else
+if chg > 0 then
+chg = chg - 1
+end
+end
 if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 18 or Vector3.new(0, Torsoz.Velocity.y, 0).magnitude > 0 and Shift == true then
 if stamina > 0 then
 abort = false
