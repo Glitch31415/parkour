@@ -6,6 +6,8 @@ end)
 --print("waiting for " .. game.Players.LocalPlayer.Name)
 --script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 --print("i waited")
+workspace.Gravity = 196.2
+
 local player = game.Players.LocalPlayer
 local swrs = 0
 local chg = 0
@@ -17,6 +19,7 @@ local cam = workspace.CurrentCamera
 repeat wait() until player.Character
 local char = player.Character
 wait(1)
+char.Humanoid.JumpPower = 7.2
 local gp
 local Torsoz = char:WaitForChild("Torso")
 local RA = char:findFirstChild("Right Arm")
