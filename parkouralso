@@ -220,7 +220,7 @@ function CreateGui()
 
 	t = Instance.new("TextLabel", c)
 	t.Size = UDim2.new(0,0,-0.1,0)
-	t.Position = UDim2.new(0.3,0,0.75,0)
+	t.Position = UDim2.new(0.3,0,0.25,-75)
 	t.TextXAlignment = "Right"
 	t.Font = "ArialBold"
 	t.TextTransparency = 0.1
