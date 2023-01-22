@@ -911,8 +911,8 @@ p.Transparency = 0.3
 
 				bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0) * CFrame.Angles(0,aniangle/60,0)
 
-				SetWeld(joint1,1,1, NV,NV, Vector3.new(1.4,0.45,-0.1), Vector3.new(-math.pi/3.2,aniangle/52,(math.pi/8)+(aniangle/30)))
-				SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.4,0.45,-0.1), Vector3.new(-math.pi/3.2,aniangle/52,(-math.pi/8)+(-aniangle/30)))
+				SetWeld(joint1,1,1, NV,NV, Vector3.new(1.4,0.45,-0.1), Vector3.new(2+aniangle/4,0,0))
+				SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.4,0.45,-0.1), Vector3.new(2+(aniangle/-4),0,0))
 				SetWeld(joint3,1,1, NV,NV, Vector3.new(0.51,-0.75,-(aniangle/30)), Vector3.new(0,math.pi/2,(aniangle/8)-0.3))
 				SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.51,-0.75,(aniangle/30)), Vector3.new(0,math.pi/2,(-aniangle/8)-0.3))
 
