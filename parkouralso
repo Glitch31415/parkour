@@ -883,10 +883,10 @@ p.Transparency = 0.3
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 3 and vwrc == 0 do
+		while VWallRunning == true and stamina > 6 and vwrc == 0 do
 			if abort == false then
 				print("hi")
-				stamina = stamina - 3
+				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
 				local hitz2, enz2 = RAY(Torsoz.Position, (CFrame.new(NV,towall)*CFrame.Angles(math.pi/2,0,0)).lookVector*2.4)
 
@@ -938,7 +938,7 @@ p.Transparency = 0.3
 				end
 			end
 		end
-		if stamina < 4 then
+		if stamina < 7 then
 			print("e")
 			vwrc = 60
 		end
