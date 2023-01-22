@@ -1,4 +1,5 @@
 local player = game.Players.LocalPlayer
+vwrc = 0
 local abort = false
 local mouse = player:GetMouse()
 local cam = workspace.CurrentCamera
@@ -826,8 +827,9 @@ function HWallRun(part, pos, side)
 end
 
 function VWR(part, pos)
-	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" then
+	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0 then
 		print("VWR Activated")
+		print(vwrc)
 		flow.Value = flow.Value + 9
 		Standing = false
 		VWallRunning = true
@@ -881,7 +883,7 @@ p.Transparency = 0.3
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 0 do
+		while VWallRunning == true and stamina > 3 and vwrc == 0 do
 			if abort == false then
 				print("hi")
 				stamina = stamina - 3
@@ -935,6 +937,10 @@ p.Transparency = 0.3
 					Action = "VWRFalling"
 				end
 			end
+		end
+		if stamina < 4 then
+			print("e")
+			vwrc = 60
 		end
 
 		-------------------------- Falling from VWR ------------------------------
@@ -1486,6 +1492,9 @@ game:service("RunService").Stepped:connect(function()
 		GravPoint = GravPoint - 1.7
 	end
 	----------------------------- stamina ----------------------------------------
+	if vwrc > 0 then
+		vwrc = vwrc - 1
+	end
 	if stamina < maxstamina then
 		stamina = stamina + 0.5
 	end
