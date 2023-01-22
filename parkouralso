@@ -509,8 +509,10 @@ function HWallRun(part, pos, side)
 		GravPoint = Torsoz.Velocity.y
 		HWRLastPart = part
 		local dir, dirc = FindSurface(part, pos)
-		towall = -dir
-		dir = (CFrame.new(NV, dir) * CFrame.Angles(0,side,0)).lookVector
+		if dir ~= nil then
+			towall = -dir
+			dir = (CFrame.new(NV, dir) * CFrame.Angles(0,side,0)).lookVector
+		end
 
 		local bv = Instance.new("BodyVelocity", Torsoz)
 		bv.Name = "StaminaBodyObject"
