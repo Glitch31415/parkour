@@ -215,7 +215,7 @@ function CreateGui()
 	c.Visible = true
 	c.Size = UDim2.new(1,0,1,0)
 	c.BackgroundTransparency = 0
-	c.Position = UDim2.new(0,0,0,0)
+	c.Position = UDim2.new(0,1,0,0)
 	c.Name = "Container"
 
 	t = Instance.new("TextLabel", c)
