@@ -709,7 +709,7 @@ end
  
 end
  
-if HWallRunning == "Jumping" then
+if HWallRunning == "Jumping" and 0==1 then
 HWRCooldown = 0
 joint1.C1 = CFrame.new(0,0.5,0)
  
@@ -933,7 +933,7 @@ end
 end
  
 -------------------------- Falling from VWR ------------------------------
-if VWallRunning == "Falling" then
+if VWallRunning == "Falling" and 0==1 then
 GravPoint = GravPoint - 1
 local dirpos = (-towall *5) + Vector3.new(0,GravPoint,0)
 bv.velocity = CFrame.new(NV, dirpos).lookVector * dirpos.magnitude
