@@ -3,9 +3,9 @@ game.Players.LocalPlayer.CharacterAdded:connect(function()
 	script.Disabled = true
 	script:Destroy()
 end)
-print("waiting for " .. game.Players.LocalPlayer.Name)
-script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-print("i waited")
+--print("waiting for " .. game.Players.LocalPlayer.Name)
+--script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+--print("i waited")
 local player = game.Players.LocalPlayer
 vwrc = 0
 local abort = false
