@@ -65,8 +65,8 @@ end
 
 local loadids = {112474909, 112474911, 112474909}
 
-local stamina = 1000
-local maxstamina = 1000
+local stamina = 100000
+local maxstamina = 100000
 local defsprint = 32
 local sprint = defsprint  
 
@@ -502,12 +502,11 @@ end
 
 function HWallRun(part, pos, side)
 	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" then
-		swrs = Torsoz.Velocity.y
 		flow.Value = flow.Value + 9
 		Standing = false
 		HWallRunning = true
 		Action = "HWallRunning"
-		GravPoint = 10+swrs
+		GravPoint = Torsoz.Velocity.y
 		HWRLastPart = part
 		local dir, dirc = FindSurface(part, pos)
 		towall = -dir
@@ -687,7 +686,7 @@ function HWallRun(part, pos, side)
 		Stand()
 		HWallRunning = false
 		if stamina - (chg*2.5) > 0 then
-			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),Torsoz.Velocity.Y+(0.75*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
 			chg = 0
 		end
@@ -819,7 +818,7 @@ p.Transparency = 0.3
 		VWallRunning = false
 		Stand()
 		if stamina - (chg*2.5) > 0 then
-			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+			Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),Torsoz.Velocity.Y+(0.75*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
 			chg = 0
 		end
@@ -1188,7 +1187,7 @@ game:service("RunService").Stepped:connect(function()
 	if Shift == true then
 		if Space == true and (Action == "Standing") then
 			if stamina - (chg*2.5) > 0 then
-				Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg/2)),Torsoz.Velocity.Y+(0.5*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg/2)))
+				Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),Torsoz.Velocity.Y+(0.75*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
 				chg = 0
 			end
