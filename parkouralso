@@ -19,7 +19,7 @@ local cam = workspace.CurrentCamera
 repeat wait() until player.Character
 local char = player.Character
 wait(1)
-char.Humanoid.JumpPower = 7.2
+char.Humanoid.JumpPower = 50.145
 local gp
 local Torsoz = char:WaitForChild("Torso")
 local RA = char:findFirstChild("Right Arm")
