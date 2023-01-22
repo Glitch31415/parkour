@@ -213,14 +213,14 @@ function CreateGui()
 
 	c = Instance.new("Frame", g)
 	c.Visible = true
-	c.Size = UDim2.new(1,0,1,0)
+	c.Size = UDim2.new(0,150,0,450)
 	c.BackgroundTransparency = 0
-	c.Position = UDim2.new(0,1,0,0)
+	c.Position = UDim2.new(1,-150,0.5,0)
 	c.Name = "Container"
 
 	t = Instance.new("TextLabel", c)
-	t.Size = UDim2.new(1,0,1,0)
-	t.Position = UDim2.new(0.5,0,0.5,0)
+	t.Size = UDim2.new(1,0,0.2,0)
+	t.Position = UDim2.new(0.5,0,0.25,0)
 	t.TextXAlignment = "Right"
 	t.Font = "ArialBold"
 	t.TextTransparency = 0.1
@@ -231,11 +231,11 @@ function CreateGui()
 	t.BackgroundTransparency = 1
 	t2 = t:Clone()
 	t2.Parent = c
-	t2.Size = UDim2.new(1,0,1,0)
-	t2.Position = UDim2.new(0.5,0,0.5,0)
+	t2.Size = UDim2.new(1,0,0.2,0)
+	t2.Position = UDim2.new(0.5,0,0.75,0)
 	l = t:Clone()
 	l.Parent = c
-	l.Size = UDim2.new(1,0,1,0)
+	l.Size = UDim2.new(1,0,0.2,0)
 	l.Position = UDim2.new(0.5,0,0.5,0)
 	l.Text = "-----"
 
