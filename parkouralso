@@ -707,8 +707,8 @@ function VWR(part, pos)
 		local dir, dirc = FindSurface(part, pos)
 		if dir ~= nil then
 			towall = -dir
+			dir = (CFrame.new(NV, -dir) * CFrame.Angles(math.pi/2,0,0)).lookVector
 		end
-		dir = (CFrame.new(NV, -dir) * CFrame.Angles(math.pi/2,0,0)).lookVector
 --[[
 local p = P:Clone()
 p.Parent = char
