@@ -705,7 +705,9 @@ function VWR(part, pos)
 		local percent = 1
 		VWRLastPart = part
 		local dir, dirc = FindSurface(part, pos)
-		towall = -dir
+		if dir ~= nil then
+			towall = -dir
+		end
 		dir = (CFrame.new(NV, -dir) * CFrame.Angles(math.pi/2,0,0)).lookVector
 --[[
 local p = P:Clone()
