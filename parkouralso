@@ -289,12 +289,12 @@ function Sit()
 		Torsoz.CFrame = cf
 		local bp = Instance.new("BodyPosition", Torsoz)
 		bp.Name = "StaminaBodyObject"
-		bp.maxForce = Vector3.new(1/0,1/0,1/0)
+		bp.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 		bp.D = 100
 		bp.position = cf.p
 		local bg = Instance.new("BodyGyro", Torsoz)
 		bg.Name = "StaminaBodyObject"
-		bg.maxTorque = Vector3.new(1/0,1/0,1/0)
+		bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 		bg.cframe = cf
 		bg.D = 100
 		SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.34,-1,0.2), Vector3.new((math.pi/2)-(math.pi/6),0,math.pi/8))
@@ -376,12 +376,12 @@ function Dive()
 	Hu.PlatformStand = true
 	local bv = Instance.new("BodyVelocity", Torsoz)
 	bv.Name = "StaminaBodyObject"
-	bv.maxForce = Vector3.new(1/0,1/0,1/0)
+	bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 	bv.velocity = Vector3.new(DivingDir.x*24,GravPoint,DivingDir.z*24)
 	DivingBV = bv
 	local bg = Instance.new("BodyGyro", Torsoz)
 	bg.Name = "StaminaBodyObject"
-	bg.maxTorque = Vector3.new(1/0,1/0,1/0)
+	bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 	bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+bv.velocity) * CFrame.Angles(-math.pi/2,0,0)
 	bg.D = 100
 	DivingBG = bg
@@ -451,7 +451,7 @@ function Dive()
 		elseif haslanded == true then
 			local bp = Instance.new("BodyPosition", Torsoz)
 			bp.Name = "StaminaJumpFix"
-			bp.maxForce = Vector3.new(0,1/0,0)
+			bp.maxForce = Vector3.new(0,math.huge,0)
 			bp.P = 7000
 			bp.position = enz2 + Vector3.new(0,2.8,0)
 			game:service("Debris"):AddItem(bp, 0.3)
@@ -516,12 +516,12 @@ function HWallRun(part, pos, side)
 
 		local bv = Instance.new("BodyVelocity", Torsoz)
 		bv.Name = "StaminaBodyObject"
-		bv.maxForce = Vector3.new(1/0,1/0,1/0)
+		bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 		bv.P = 9000
 		bv.velocity = (dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
 		local bg = Instance.new("BodyGyro", Torsoz)
 		bg.Name = "StaminaBodyObject"
-		bg.maxTorque = Vector3.new(1/0,1/0,1/0)
+		bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 		bg.cframe = CFrame.new(Torsoz.Position+(towall*-2), Torsoz.Position) * CFrame.Angles(0,-side,-side/4.2)
 		bg.D = 100
 
@@ -722,13 +722,13 @@ p.Transparency = 0.3
 ]]
 		local bv = Instance.new("BodyVelocity", Torsoz)
 		bv.Name = "StaminaBodyObject"
-		bv.maxForce = Vector3.new(1/0,1/0,1/0)
+		bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 		bv.P = 9000
 		bv.velocity = (dir*(sprint-1))*percent
 
 		local bg = Instance.new("BodyGyro", Torsoz)
 		bg.Name = "StaminaBodyObject"
-		bg.maxTorque = Vector3.new(1/0,1/0,1/0)
+		bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 		bg.D = 100
 		local posi = pos + (-towall*1.8)
 		bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0)
@@ -838,10 +838,10 @@ function Slide(pos)
 	local dir = Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).unit
 
 	local bv = Instance.new("BodyVelocity", Torsoz)
-	bv.maxForce = Vector3.new(1/0,1/0,1/0)
+	bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 	bv.velocity = dir*spd
 	local bg = Instance.new("BodyGyro", Torsoz)
-	bg.maxTorque = Vector3.new(1/0,1/0,1/0)
+	bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 	bg.cframe = CFrame.new(NV, dir) * CFrame.Angles(math.pi/2.2,0.24,0)
 
 	local joint1 = Joint1
@@ -1286,7 +1286,7 @@ game:service("RunService").Stepped:connect(function()
 				SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new((math.pi-0.2)+(-animangle/30),0,0))
 				if animatebg.Parent ~= nil then
 					animatebg.Parent = Torsoz
-					animatebg.maxTorque = Vector3.new(1/0,10000,1/0)
+					animatebg.maxTorque = Vector3.new(math.huge,10000,math.huge)
 					local lokvec = Torsoz.CFrame.lookVector*100
 					animatebg.cframe = CFrame.new(NV, Vector3.new(lokvec.x,0,lokvec.z))
 					animatebg.Parent = nil
@@ -1304,7 +1304,7 @@ game:service("RunService").Stepped:connect(function()
 					Hu.WalkSpeed = 0
 					animspeed = 0.5
 					animatebg.Parent = Torsoz
-					animatebg.maxTorque = Vector3.new(1/0,10000,1/0)
+					animatebg.maxTorque = Vector3.new(math.huge,10000,math.huge)
 					local lokvec = Torsoz.CFrame.lookVector*100
 					animatebg.cframe = CFrame.new(NV, Vector3.new(lokvec.x,0,lokvec.z)) * CFrame.Angles(-math.pi/11,animangle/70,0)
 					SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.45,-0.8,0), Vector3.new((animangle/27)-0.3,0,0.18))
@@ -1316,7 +1316,7 @@ game:service("RunService").Stepped:connect(function()
 		elseif hitz2.CanCollide == true then
 			if animatebg.Parent ~= nil then
 				animatebg.Parent = Torsoz
-				animatebg.maxTorque = Vector3.new(1/0,10000,1/0)
+				animatebg.maxTorque = Vector3.new(math.huge,10000,math.huge)
 				local lokvec = Torsoz.CFrame.lookVector*100
 				animatebg.cframe = CFrame.new(NV, Vector3.new(lokvec.x,0,lokvec.z))
 				animatebg.Parent = nil
