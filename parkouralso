@@ -1190,6 +1190,7 @@ game:service("RunService").Stepped:connect(function()
 		if Space == true and (Action == "Standing") then
 			if stamina - (chg*2.5) > 0 then
 				Torsoz.Velocity = Vector3.new(Torsoz.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*75)),Torsoz.Velocity.Y+(75*chg),Torsoz.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*75)))
+				print("EEEEE")
 				stamina = stamina-(chg*2.5)
 				chg = 0
 			end
