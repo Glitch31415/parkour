@@ -1345,7 +1345,7 @@ Sit()
 elseif HWallRunning == true then
 HWRGravDrop = true
 end
-elseif key == string.char(52) then
+elseif key == string.char(999) then
 if Shift == true and Action == "Standing" and SlideCooldown == 0 and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 15 and Torsoz.Velocity.y > -40 then
 print("Sliding")
 Slide()
@@ -1354,7 +1354,7 @@ elseif key == "a" then
 VWRLeft = true
 elseif key == "d" then
 VWRRight = true
-elseif key == "g" then
+elseif key == "p" then
 Dive()
 end
 end
@@ -1369,7 +1369,7 @@ elseif key == string.char(50) then
 if Action == "Sitting" then
 Stand()
 end
-elseif key == string.char(52) then
+elseif key == string.char(999) then
 Sliding = false
 elseif key == "a" then
 VWRLeft = false
