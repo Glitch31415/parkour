@@ -7,6 +7,7 @@ end)
 --script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 --print("i waited")
 local player = game.Players.LocalPlayer
+local swrs = 0
 vwrc = 0
 local abort = false
 local mouse = player:GetMouse()
@@ -62,8 +63,8 @@ end
 
 local loadids = {112474909, 112474911, 112474909}
 
-local stamina = 1000
-local maxstamina = 1000
+local stamina = 100000
+local maxstamina = 100000
 local defsprint = 32
 local sprint = defsprint  
 
@@ -525,11 +526,12 @@ end
 
 function HWallRun(part, pos, side)
 	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" then
+		swrs = Torsoz.Velocity.y
 		flow.Value = flow.Value + 9
 		Standing = false
 		HWallRunning = true
 		Action = "HWallRunning"
-		GravPoint = 10
+		GravPoint = 10+swrs
 		HWRLastPart = part
 		local dir, dirc = FindSurface(part, pos)
 		towall = -dir
@@ -692,12 +694,12 @@ function HWallRun(part, pos, side)
 			end
 
 			wait(0.025)
-			if GravPoint < -100 then
-				bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
-				local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
-				Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
-				break
-			end
+			--if GravPoint < -100 then
+				--bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
+				--local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
+				--Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
+				--break
+			--end
 
 		end
 
@@ -1276,7 +1278,7 @@ function KD(key)
 				VWallRunning = "BackflipFromFall"
 			end
 
-			if Shift == true and Torsoz.Velocity.y > -50 and Diving == false and DivingCooldown <= 0 then
+			if Diving == false and DivingCooldown <= 0 then
 				local hitz2, enz2 = RAY(Torsoz.Position, Vector3.new(0,-3.5,0))
 
 				if hitz ~= nil then
