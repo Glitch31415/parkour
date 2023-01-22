@@ -68,8 +68,8 @@ end
 
 local loadids = {112474909, 112474911, 112474909}
 
-local stamina = 100000
-local maxstamina = 100000
+local stamina = 1000
+local maxstamina = 1000
 local defsprint = 32
 local sprint = defsprint  
 
