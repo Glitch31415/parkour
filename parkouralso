@@ -1512,6 +1512,7 @@ elseif HWallRunning == "Jumping" then
 GravPoint = GravPoint - 1.7
 end
 ----------------------------- stamina ----------------------------------------
+tch.Text = chg
 if jcharge == true then
 if chg < 100 then
 chg = chg + 1
