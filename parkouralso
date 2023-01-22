@@ -1,4 +1,4 @@
-print("waiting")
+print("waiting for " + game.Players.LocalPlayer.Name)
 repeat wait() until game.Workspace[game.Players.LocalPlayer.Name]
 script.Parent = game.Workspace[game.Players.LocalPlayer.Name]
 print("i waited")
