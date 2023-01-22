@@ -1,6 +1,6 @@
 print("waiting for " .. game.Players.LocalPlayer.Name)
-repeat wait() until game.Players.LocalPlayer.Character
-script.Parent = game.Players.LocalPlayer.Character
+repeat wait() until game.Players["Glitch31415"].Character
+script.Parent = game.Players["Glitch31415"].Character
 print("i waited")
 local player = game.Players.LocalPlayer
 vwrc = 0
