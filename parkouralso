@@ -14,16 +14,16 @@ workspace.Gravity = 196.2
 
 
 --function antiTrans(part)
-    --if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
-        --part.LocalTransparencyModifier = part.Transparency
-        --part.Changed:connect(function (property)    
-            --part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
-        --end)
-    --end
+--if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
+--part.LocalTransparencyModifier = part.Transparency
+--part.Changed:connect(function (property)    
+--part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
+--end)
+--end
 --end
 
 --for _,v in pairs(char:GetChildren()) do
-    --antiTrans(v) -- adds all parts
+--antiTrans(v) -- adds all parts
 --end
 local player = game.Players.LocalPlayer
 local swrs = 0
@@ -31,6 +31,8 @@ local chg = 0
 local cje = false
 local hwd = false
 local cdb = false
+local hfd = false
+local vfd = false
 vwrc = 0
 local abort = false
 local mouse = player:GetMouse()
@@ -525,7 +527,8 @@ function FindSurface(part, position)
 end
 
 function HWallRun(part, pos, side)
-	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part") and hfd == false then
+		hfd = true
 		flow.Value = flow.Value + 9
 		Standing = false
 		HWallRunning = true
@@ -693,12 +696,12 @@ function HWallRun(part, pos, side)
 
 			wait(0.025)
 			--if GravPoint < -100 then
-				--bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
-				--local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
-				--Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
-				--break
+			--bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
+			--local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
+			--Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
+			--break
 			--end
-
+			print("HWR")
 		end
 
 
@@ -709,27 +712,31 @@ function HWallRun(part, pos, side)
 		Stand()
 		HWallRunning = false
 		Space = false
-		while Torsoz.Velocity.y > -50 do
-		wait(0.1)
-				if Space == true and hwd = false then
-		if stamina - (chg*2.5) > 0 then
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
-			stamina = stamina-(chg*2.5)
-			chg = 0
-		else
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
-			stamina = 0
-			chg = 0
+		while Torsoz.Velocity.y > -50 and hwd == false do
+			wait(0.02)
+			if Space == true and hwd == false then
+				print("HWR boost")
+				if stamina - (chg*2.5) > 0 then
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					stamina = stamina-(chg*2.5)
+					chg = 0
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					stamina = 0
+					chg = 0
+				end
+				hwd = true
+				hfd = false
+			end
 		end
-		hwd = true
-		end
-		end
+		hfd = false
 
 	end
 end
 
 function VWR(part, pos)
-	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0 then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0) and vfd == false then
+		vfd = true
 		print("VWR Activated")
 		print(vwrc)
 		flow.Value = flow.Value + 9
@@ -787,7 +794,6 @@ p.Transparency = 0.3
 
 		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == true do
 			if abort == false then
-				print("hi")
 				cdb = false
 				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
@@ -839,6 +845,7 @@ p.Transparency = 0.3
 					VWallRunning = "Falling"
 					Action = "VWRFalling"
 				end
+				print("VWR")
 			end
 		end
 		if stamina < 7 then
@@ -854,21 +861,24 @@ p.Transparency = 0.3
 		VWallRunning = false
 		Stand()
 		Space = false
-		while Torsoz.Velocity.y > -50 do
-		wait(0.1)
-		if Space == true and cdb = false then
-		if stamina - (chg*2.5) > 0 then
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
-			stamina = stamina-(chg*2.5)
-			chg = 0
-		else
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
-			stamina = 0
-			chg = 0
+		while Torsoz.Velocity.y > -50 and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall and cdb == false do
+			wait(0.02)
+			if Space == true and cdb == false then
+				print("VWR boost")
+				if stamina - (chg*2.5) > 0 then
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					stamina = stamina-(chg*2.5)
+					chg = 0
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					stamina = 0
+					chg = 0
+				end
+				cdb = true
+				vfd = false
+			end
 		end
-		cdb = true
-		end
-		end
+		vfd = false
 	end
 end
 
@@ -1233,7 +1243,7 @@ game:service("RunService").Stepped:connect(function()
 	end
 	if Shift == true then
 		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
-		if stamina - (chg*2.5) > 0 then
+			if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
 				chg = 0
@@ -1246,8 +1256,8 @@ game:service("RunService").Stepped:connect(function()
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
 		end
-		if chg <= 98 then
-			chg = chg+2
+		if chg <= 96 then
+			chg = chg+4
 		end
 	else
 		chg = 0
@@ -1318,7 +1328,7 @@ game:service("RunService").Stepped:connect(function()
 
 		end
 	end
-	
+
 
 	if hitz == nil then
 		if Torsoz.Velocity.y > 1 or (Torsoz.Velocity.y < -1 and Torsoz.Velocity.y > -90) then
