@@ -29,6 +29,8 @@ local player = game.Players.LocalPlayer
 local swrs = 0
 local chg = 0
 local cje = false
+local hwd = false
+local cdb = false
 vwrc = 0
 local abort = false
 local mouse = player:GetMouse()
@@ -594,7 +596,7 @@ function HWallRun(part, pos, side)
 		local prevpart = part
 		HWRLastPart = part
 		while HWallRunning == true and abort == false and Space == true do
-
+			hwd = false
 			if aniangle > math.pi then
 				aniplus = false
 			elseif aniangle < -math.pi then
@@ -706,9 +708,10 @@ function HWallRun(part, pos, side)
 		HWRGravDrop = false
 		Stand()
 		HWallRunning = false
+		Space = false
 		while Torsoz.Velocity.y > -50 do
 		wait(0.1)
-				if Space == true then
+				if Space == true and hwd = false then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
@@ -718,6 +721,7 @@ function HWallRun(part, pos, side)
 			stamina = 0
 			chg = 0
 		end
+		hwd = true
 		end
 		end
 
@@ -784,6 +788,7 @@ p.Transparency = 0.3
 		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == true do
 			if abort == false then
 				print("hi")
+				cdb = false
 				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
 				local hitz2, enz2 = RAY(Torsoz.Position, (CFrame.new(NV,towall)*CFrame.Angles(math.pi/2,0,0)).lookVector*2.4)
@@ -848,9 +853,10 @@ p.Transparency = 0.3
 		bg:remove()
 		VWallRunning = false
 		Stand()
+		Space = false
 		while Torsoz.Velocity.y > -50 do
 		wait(0.1)
-		if Space == true then
+		if Space == true and cdb = false then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
@@ -860,6 +866,7 @@ p.Transparency = 0.3
 			stamina = 0
 			chg = 0
 		end
+		cdb = true
 		end
 		end
 	end
