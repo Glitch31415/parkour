@@ -38,18 +38,33 @@ local char = player.Character
 wait(1)
 char.Humanoid.JumpPower = 50.145
 local gp
-local Torsoz = char:WaitForChild("Torso") or char:WaitForChild("LowerTorso")
-local RA = char:findFirstChild("Right Arm") or char:findFirstChild("RightLowerArm")
-local LA = char:findFirstChild("Left Arm") or char:findFirstChild("LeftLowerArm")
-local RL = char:findFirstChild("Right Leg") or char:findFirstChild("RightUpperLeg")
-local LL = char:findFirstChild("Left Leg") or char:findFirstChild("RightLeftLeg")
+if char:WaitForChild("Humanoid").RigType == Enum.HumanoidRigType.R15 then
+local Torsoz = char:WaitForChild("LowerTorso")
+local RA = char:findFirstChild("RightLowerArm")
+local LA = char:findFirstChild("LeftLowerArm")
+local RL = char:findFirstChild("RightUpperLeg")
+local LL = char:findFirstChild("RightLeftLeg")
 local H = char:findFirstChild("Head")
 local Hu = char:findFirstChild("Humanoid")
 local RS = char:findFirstChild("RightUpperArm"):findFirstChild("RightShoulder")
 local LS = char:findFirstChild("LeftUpperArm"):findFirstChild("LeftShoulder")
-local RH = char:findFirstChild("Right Hip") or char:findFirstChild("RightUpperLeg")
-local LH = char:findFirstChild("Left Hip") or char:findFirstChild("LeftUpperLeg")
+local RH = char:findFirstChild("RightUpperLeg")
+local LH = char:findFirstChild("LeftUpperLeg")
 local N = H:findFirstChild("Neck")
+else
+local Torsoz = char:WaitForChild("Torso")
+local RA = char:findFirstChild("Right Arm")
+local LA = char:findFirstChild("Left Arm")
+local RL = char:findFirstChild("Right Leg")
+local LL = char:findFirstChild("Left Leg")
+local H = char:findFirstChild("Head")
+local Hu = char:findFirstChild("Humanoid")
+local RS = Torsoz:findFirstChild("Right Shoulder")
+local LS = Torsoz:findFirstChild("Left Shoulder")
+local RH = Torsoz:findFirstChild("Right Hip")
+local LH = Torsoz:findFirstChild("Left Hip")
+local N = Torsoz:findFirstChild("Neck")
+end
 local NV = Vector3.new(0,0,0)
 local FOV = 90
 local Shift, Space, Sitting = false,false,false
