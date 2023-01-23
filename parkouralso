@@ -777,7 +777,7 @@ p.Transparency = 0.3
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 6 and vwrc == 0 do
+		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == false do
 			if abort == false then
 				print("hi")
 				stamina = stamina - 6
