@@ -707,7 +707,7 @@ function HWallRun(part, pos, side)
 		Stand()
 		HWallRunning = false
 		while Torsoz.Velocity.y > -10 do
-		wait()
+		wait(0.1)
 				if Space == true then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
@@ -849,7 +849,7 @@ p.Transparency = 0.3
 		VWallRunning = false
 		Stand()
 		while Torsoz.Velocity.y > -10 do
-		wait()
+		wait(0.1)
 		if Space == true then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
