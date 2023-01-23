@@ -681,7 +681,6 @@ function HWallRun(part, pos, side)
 			--bv.velocity = (dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
 			mix = Vector3.new(char.HumanoidRootPart.Velocity.X,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z)
 			mix = (mix+(dir*(sprint-0.5)))/2
-			mix = Vector3.new(mix.X,0,mix.Z)
 			bv.velocity = Vector3.new(mix.X,(dir.Y*(sprint-0.5)),mix.Z) + Vector3.new(0,GravPoint,0)
 			bg.cframe = bg.cframe * CFrame.Angles(aniangle/80,aniangle/80,0)
 			Torsoz.CFrame = Torsoz.CFrame * CFrame.Angles(aniangle/80,aniangle/80,0)
