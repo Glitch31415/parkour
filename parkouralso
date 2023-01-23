@@ -1184,7 +1184,7 @@ game:service("RunService").Stepped:connect(function()
 
 	local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-3.9,0))
 	if GravAction ~= "Falling" then
-		Hu.WalkSpeed = 8+(chg/3.125)
+		Hu.WalkSpeed = 16+(chg/3.125)
 	end
 	if (FOV >= 70 and FOV < 74) and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 25 then
 		FOV = FOV + 1
@@ -1253,7 +1253,7 @@ game:service("RunService").Stepped:connect(function()
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
 		end
-		if chg <= 97 then
+		if chg <= 98 then
 			chg = chg+2
 		end
 		
