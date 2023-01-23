@@ -706,7 +706,7 @@ function HWallRun(part, pos, side)
 		HWRGravDrop = false
 		Stand()
 		HWallRunning = false
-		while Torsoz.Velocity.y > -10 do
+		while Torsoz.Velocity.y > -50 do
 		wait(0.1)
 				if Space == true then
 		if stamina - (chg*2.5) > 0 then
@@ -781,8 +781,8 @@ p.Transparency = 0.3
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 6 and vwrc == 0 do
-			if abort == false and Space == true then
+		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == true do
+			if abort == false then
 				print("hi")
 				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
@@ -848,7 +848,7 @@ p.Transparency = 0.3
 		bg:remove()
 		VWallRunning = false
 		Stand()
-		while Torsoz.Velocity.y > -10 do
+		while Torsoz.Velocity.y > -50 do
 		wait(0.1)
 		if Space == true then
 		if stamina - (chg*2.5) > 0 then
