@@ -7,7 +7,24 @@ end)
 --script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 --print("i waited")
 workspace.Gravity = 196.2
+local self,player = script.Parent,game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:wait()
+ local humanoid = char:WaitForChild("Humanoid") -- waits for the humanoid in the character
 
+
+
+function antiTrans(part)
+    if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
+        part.LocalTransparencyModifier = part.Transparency
+        part.Changed:connect(function (property)    
+            part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
+        end)
+    end
+end
+
+for _,v in pairs(char:GetChildren()) do
+    antiTrans(v) -- adds all parts
+end
 local player = game.Players.LocalPlayer
 local swrs = 0
 local chg = 0
@@ -1231,11 +1248,6 @@ game:service("RunService").Stepped:connect(function()
 		stamina = 0
 	else
 		abort = false
-	end
-	for i, part in pairs(char:GetChildren()) do
-		if string.match(part.Name, 'Arm') or string.match(part.Name, 'Hand') or string.match(part.Name, 'Leg') or string.match(part.Name, 'Foot') then
-			part.LocalTransparencyModifier = 0
-		end
 	end
 	if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 18 and Action == "Standing" and Shift == true then
 		if stamina > 0 then
