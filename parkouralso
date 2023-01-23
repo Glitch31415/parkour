@@ -1253,11 +1253,15 @@ game:service("RunService").Stepped:connect(function()
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
 		end
-		if chg <= 96 then
-			chg = chg+4
+		if chg <= 97 then
+			chg = chg+3
 		end
+		
 	else
-		chg = 0
+		if chg >= 3 then
+			chg = chg - 3
+		end
+
 	end
 	if HWallRunning == true then
 		if Shift == true then
