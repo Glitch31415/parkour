@@ -527,7 +527,7 @@ function FindSurface(part, position)
 end
 
 function HWallRun(part, pos, side)
-	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part") and hfd == false then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part") and hfd == false and vfd == false and Torsoz.Velocity.y > -50 then
 		hfd = true
 		flow.Value = flow.Value + 9
 		Standing = false
@@ -652,7 +652,6 @@ function HWallRun(part, pos, side)
 						---- if player fails to find new wall to run on
 						Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 						bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-						Torsoz.Velocity = NV
 						HWRCooldown = 0
 						break
 					end
@@ -664,7 +663,6 @@ function HWallRun(part, pos, side)
 				---- if player ends wall run at end of wall
 				Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 				bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-				Torsoz.Velocity = NV
 				HWRCooldown = 0
 				break
 			end
@@ -673,7 +671,6 @@ function HWallRun(part, pos, side)
 			if hitz3 ~= nil and hitz3.CanCollide == true then
 				Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 				bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-				Torsoz.Velocity = NV
 				HWRCooldown = 0
 				break
 			end
@@ -712,9 +709,9 @@ function HWallRun(part, pos, side)
 		Stand()
 		HWallRunning = false
 		Space = false
-		while Torsoz.Velocity.y > -50 and hwd == false do
+		while hwd == false do
 			wait(0.02)
-			if Space == true and hwd == false then
+			if Torsoz.Velocity.y > -50 and Space == true and hwd == false then
 				print("HWR boost")
 				if stamina - (chg*2.5) > 0 then
 					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
@@ -735,7 +732,7 @@ function HWallRun(part, pos, side)
 end
 
 function VWR(part, pos)
-	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0) and vfd == false then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0) and vfd == false and hfd == false then
 		vfd = true
 		print("VWR Activated")
 		print(vwrc)
@@ -762,7 +759,7 @@ p.Transparency = 0.3
 		bv.Name = "StaminaBodyObject"
 		bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 		bv.P = 9000
-		bv.velocity = (dir*(sprint-1))*percent
+		bv.velocity = Vector3.new(0,0,0)
 
 		local bg = Instance.new("BodyGyro", Torsoz)
 		bg.Name = "StaminaBodyObject"
@@ -795,7 +792,7 @@ p.Transparency = 0.3
 		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == true do
 			if abort == false then
 				cdb = false
-				stamina = stamina - 6
+				stamina = stamina - 15
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
 				local hitz2, enz2 = RAY(Torsoz.Position, (CFrame.new(NV,towall)*CFrame.Angles(math.pi/2,0,0)).lookVector*2.4)
 
@@ -809,14 +806,15 @@ p.Transparency = 0.3
 				elseif aniplus == false then
 					aniangle = aniangle - (1.3*(percent+0.2))
 				end
+				if bv.velocity.Y < 10 then
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X, Torsoz.Velocity.Y+3, Torsoz.Velocity.Z)
+					bv.Velocity = char.HumanoidRootPart.Velocity
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X, Torsoz.Velocity.Y-0.5, Torsoz.Velocity.Z)
+					bv.Velocity = char.HumanoidRootPart.Velocity
+				end
 
-				bv.velocity = (dir*(sprint-1))*percent
-				if VWRLeft == true then
-					bv.velocity = bv.velocity + ((CFrame.new(NV, towall) * CFrame.Angles(0,math.pi/2,0)).lookVector * (11*percent+5))
-				end
-				if VWRRight == true then
-					bv.velocity = bv.velocity - ((CFrame.new(NV, towall) * CFrame.Angles(0,math.pi/2,0)).lookVector * (11*percent+5))
-				end
+					--(dir*(sprint-1))*percent
 
 				bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0) * CFrame.Angles(0,aniangle/60,0)
 
@@ -840,7 +838,6 @@ p.Transparency = 0.3
 				end
 
 				wait(0.02)
-				percent = percent - 0.028
 				if percent <= 0.15 then
 					VWallRunning = "Falling"
 					Action = "VWRFalling"
@@ -848,7 +845,7 @@ p.Transparency = 0.3
 				print("VWR")
 			end
 		end
-		if stamina < 7 then
+		if stamina < 16 then
 			print("e")
 			vwrc = 60
 		end
@@ -1024,9 +1021,7 @@ function KD(key)
 				if hitz ~= nil then
 					if Action == "Standing" and VWRCooldown == 0 then
 						if hitz2 == nil or hitz2.CanCollide == false then
-							if Torsoz.Velocity.y > -50 then
-								VWR(hitz, enz)
-							end
+							VWR(hitz, enz)
 						end
 					end
 				end
@@ -1182,12 +1177,8 @@ game:service("RunService").Stepped:connect(function()
 	end
 
 	local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-3.9,0))
-	if Shift == true and GravAction ~= "Falling" then
-		Hu.WalkSpeed = sprint
-	elseif Shift == false then
-		Hu.WalkSpeed = 16
-	elseif GravAction == "Falling" then
-		Hu.WalkSpeed = 0
+	if GravAction ~= "Falling" then
+		Hu.WalkSpeed = 8+(chg/3.125)
 	end
 	if (FOV >= 70 and FOV < 74) and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 25 then
 		FOV = FOV + 1
