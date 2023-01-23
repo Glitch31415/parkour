@@ -810,7 +810,7 @@ p.Transparency = 0.3
 				elseif aniplus == false then
 					aniangle = aniangle - (1.3*(percent+0.2))
 				end
-				if bv.velocity.Y < 10 then
+				if bv.velocity.Y < 20 then
 					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X, Torsoz.Velocity.Y+3, Torsoz.Velocity.Z)
 					bv.Velocity = char.HumanoidRootPart.Velocity
 				else
