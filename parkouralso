@@ -827,11 +827,11 @@ p.Transparency = 0.3
 				SetWeld(joint3,1,1, NV,NV, Vector3.new(0.51,-0.75,-(aniangle/30)), Vector3.new(0,math.pi/2,(aniangle/8)-0.3))
 				SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.51,-0.75,(aniangle/30)), Vector3.new(0,math.pi/2,(-aniangle/8)-0.3))
 
-				--if hitz == nil then
+				if hitz == nil then
 					--local lv = Torsoz.Position + (Torsoz.CFrame.lookVector*100)
 					--Torsoz.CFrame = CFrame.new(Torsoz.Position, Vector3.new(lv.x,Torsoz.Position.y,lv.z))
-					--break
-				--end
+					break
+				end
 
 				if hitz2 ~= nil then
 					percent = 0
