@@ -593,7 +593,7 @@ function HWallRun(part, pos, side)
 
 		local prevpart = part
 		HWRLastPart = part
-		while HWallRunning == true and abort == false do
+		while HWallRunning == true and abort == false and Space == true do
 
 			if aniangle > math.pi then
 				aniplus = false
@@ -706,7 +706,8 @@ function HWallRun(part, pos, side)
 		HWRGravDrop = false
 		Stand()
 		HWallRunning = false
-		if Space == true then
+		while Torsoz.Velocity.y > -10 do
+				if Space == true then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 			stamina = stamina-(chg*2.5)
@@ -717,6 +718,8 @@ function HWallRun(part, pos, side)
 			chg = 0
 		end
 		end
+		end
+
 	end
 end
 
@@ -778,7 +781,7 @@ p.Transparency = 0.3
 		local aniplus = true
 
 		while VWallRunning == true and stamina > 6 and vwrc == 0 do
-			if abort == false and Space == false then
+			if abort == false and Space == true then
 				print("hi")
 				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
@@ -844,6 +847,7 @@ p.Transparency = 0.3
 		bg:remove()
 		VWallRunning = false
 		Stand()
+		while Torsoz.Velocity.y > -10 do
 		if Space == true then
 		if stamina - (chg*2.5) > 0 then
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
@@ -853,6 +857,7 @@ p.Transparency = 0.3
 			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
 			stamina = 0
 			chg = 0
+		end
 		end
 		end
 	end
