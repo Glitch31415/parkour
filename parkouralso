@@ -1214,8 +1214,8 @@ game:service("RunService").Stepped:connect(function()
 		Shift = false
 	end
 	if Shift == true then
-		if Space == true and (Action == "Standing" and char.Humanoid:GetState() ~= Enum.HumanoidStateType.Freefall) then
-			if stamina - (chg*2.5) > 0 then
+		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
+		if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
 				chg = 0
@@ -1232,9 +1232,7 @@ game:service("RunService").Stepped:connect(function()
 			chg = chg+2
 		end
 	else
-		if chg >= 2 then
-			chg = chg-2
-		end
+		chg = 0
 	end
 	if HWallRunning == true then
 		if Shift == true then
