@@ -27,6 +27,8 @@ workspace.Gravity = 196.2
 --end
 local player = game.Players.LocalPlayer
 local swrs = 0
+local vtim = 0
+local htim = 0
 local chg = 0
 local cje = false
 local hwd = false
@@ -711,8 +713,9 @@ function HWallRun(part, pos, side)
 		Space = false
 		while hwd == false do
 			wait(0.02)
-			if Torsoz.Velocity.y > -50 and Space == true and hwd == false then
+			if htim < 25 and Space == true and hwd == false then
 				print("HWR boost")
+				htim = htim + 1
 				if stamina - (chg*2.5) > 0 then
 					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 					stamina = stamina-(chg*2.5)
@@ -727,6 +730,7 @@ function HWallRun(part, pos, side)
 			end
 		end
 		hfd = false
+		htim = 0
 
 	end
 end
@@ -858,8 +862,9 @@ p.Transparency = 0.3
 		VWallRunning = false
 		Stand()
 		Space = false
-		while Torsoz.Velocity.y > -50 and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall and cdb == false do
+		while vtim < 25 and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall and cdb == false do
 			wait(0.02)
+			vtim = vtim + 1
 			if Space == true and cdb == false then
 				print("VWR boost")
 				if stamina - (chg*2.5) > 0 then
@@ -875,6 +880,7 @@ p.Transparency = 0.3
 				vfd = false
 			end
 		end
+		vtim = 0
 		vfd = false
 	end
 end
