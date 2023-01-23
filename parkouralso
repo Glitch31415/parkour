@@ -777,8 +777,8 @@ p.Transparency = 0.3
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 6 and vwrc == 0 and Space == false do
-			if abort == false then
+		while VWallRunning == true and stamina > 6 and vwrc == 0 do
+			if abort == false and Space == false then
 				print("hi")
 				stamina = stamina - 6
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
