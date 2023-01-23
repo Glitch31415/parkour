@@ -1002,7 +1002,7 @@ function KD(key)
 			Space = true
 
 			local ghitz, genz = RAY(Torsoz.Position, Vector3.new(0,-3.7,0))
-			local hitz, enz = RAY(Torsoz.Position+Vector3.new(game.Workspace.CurrentCamera.CFrame.LookVector.X,1.1,game.Workspace.CurrentCamera.CFrame.LookVector.Z), Torsoz.CFrame.lookVector*2.3)
+			local hitz, enz = RAY(Torsoz.Position+Vector3.new(game.Workspace.CurrentCamera.CFrame.LookVector.X*5,1.1,game.Workspace.CurrentCamera.CFrame.LookVector.Z*5), Torsoz.CFrame.lookVector*2.3)
 			local righthitz, rightenz
 			local lefthitz, leftenz
 
