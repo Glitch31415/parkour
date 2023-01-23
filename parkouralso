@@ -1254,7 +1254,7 @@ game:service("RunService").Stepped:connect(function()
 			stamina = stamina - 1
 		end
 		if chg <= 97 then
-			chg = chg+3
+			chg = chg+2
 		end
 		
 	else
