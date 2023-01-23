@@ -678,8 +678,7 @@ function HWallRun(part, pos, side)
 			end
 
 			bv.Parent = Torsoz
-			--(dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
-			bv.velocity = char.HumanoidRootPart.Velocity
+			bv.velocity = Vector3.new(char.HumanoidRootPart.Velocity.X,(dir.Y*(sprint-0.5)),char.HumanoidRootPart.Velocity.Z) + Vector3.new(0,GravPoint,0)
 			bg.cframe = bg.cframe * CFrame.Angles(aniangle/80,aniangle/80,0)
 			Torsoz.CFrame = Torsoz.CFrame * CFrame.Angles(aniangle/80,aniangle/80,0)
 			local j3,j3a = GetWeld(joint3)
