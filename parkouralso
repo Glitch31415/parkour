@@ -1232,6 +1232,11 @@ game:service("RunService").Stepped:connect(function()
 	else
 		abort = false
 	end
+	for i, part in pairs(char:GetChildren()) do
+		if string.match(part.Name, 'Arm') or string.match(part.Name, 'Hand') or string.match(part.Name, 'Leg') or string.match(part.Name, 'Foot') then
+			part.LocalTransparencyModifier = 0
+		end
+	end
 	if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 18 and Action == "Standing" and Shift == true then
 		if stamina > 0 then
 
