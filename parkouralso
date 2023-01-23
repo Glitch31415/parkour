@@ -833,13 +833,13 @@ p.Transparency = 0.3
 					break
 				end
 
-				if hitz2 ~= nil then
-					percent = 0
-					VWallRunning = "Falling"
-					Action = "VWRFalling"
-					GravPoint = -7
-					break
-				end
+				--if hitz2 ~= nil then
+					--percent = 0
+					--VWallRunning = "Falling"
+					--Action = "VWRFalling"
+					--GravPoint = -7
+					--break
+				--end
 
 				wait(0.02)
 				if percent <= 0.15 then
