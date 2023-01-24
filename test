@@ -46,6 +46,7 @@ char.Humanoid.JumpPower = 50.145
 local gp
 local Torsoz = char:WaitForChild("Torso")
 local NV = Vector3.new(0,0,0)
+local Hu = char.Humanoid
 local FOV = 90
 local Shift, Space, Sitting = false,false,false
 local GravPoint = 0
