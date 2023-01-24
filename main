@@ -165,31 +165,6 @@ p.Transparency = 0.3
 	return hitz, enz, ray
 end
 
-function Sit()
-	Standing = false
-	local hitz,enz = RAY(Torsoz.Position, Vector3.new(0,-4.1,0))
-	local tordir = Vector3.new(Torsoz.CFrame.lookVector.x,0,Torsoz.CFrame.lookVector.z)
-	if (hitz ~= nil and hitz.CanCollide == true) then
-		local cf = CFrame.new(enz+Vector3.new(0,1.28,0), enz+Vector3.new(0,1.28,0)+tordir) * CFrame.Angles(math.pi/6,0,0)
-		local hitz2,enz2 = RAY(enz+Vector3.new(0,2.25,0), tordir*-2.2)
-		Hu.PlatformStand = true
-		Torsoz.CFrame = cf
-		local bp = Instance.new("BodyPosition", Torsoz)
-		bp.Name = "StaminaBodyObject"
-		bp.maxForce = Vector3.new(math.huge,math.huge,math.huge)
-		bp.D = 100
-		bp.position = cf.p
-		local bg = Instance.new("BodyGyro", Torsoz)
-		bg.Name = "StaminaBodyObject"
-		bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
-		bg.cframe = cf
-		bg.D = 100
-
-		Sitting = true
-		Action = "Sitting"
-	end
-end
-
 
 function Stand()
 	Hu.PlatformStand = false
@@ -211,100 +186,6 @@ end
 
 --------------------------------------- Dive ----------------------------------
 
-function Dive()
-	stamina = stamina - 10
-	Standing = false
-	local dir = Vector3.new(Torsoz.CFrame.lookVector.x,0,Torsoz.CFrame.lookVector.z)
-	GravPoint = -10
-	DivingDir = dir
-	local cf = CFrame.new(Torsoz.Position, dir+Vector3.new(0,Torsoz.Position.y,0))
-	DivingCF = cf
-	DivingDir = dir
-	Hu.PlatformStand = true
-	local bv = Instance.new("BodyVelocity", Torsoz)
-	bv.Name = "StaminaBodyObject"
-	bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
-	bv.velocity = Vector3.new(DivingDir.x*24,GravPoint,DivingDir.z*24)
-	DivingBV = bv
-	local bg = Instance.new("BodyGyro", Torsoz)
-	bg.Name = "StaminaBodyObject"
-	bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
-	bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+bv.velocity) * CFrame.Angles(-math.pi/2,0,0)
-	bg.D = 100
-	DivingBG = bg
-
-
-
-	Diving = true
-	Action = "Diving"
-
-	for i = 1, 8 do
-		wait(0.025)
-	end
-
-	local counter = 0
-	while Diving == true do
-		counter = counter + 1
-		bg.Parent = Torsoz
-		local hitz, enz = RAY(Torsoz.Position, bv.velocity.unit*4.6)
-		if hitz ~= nil and hitz.CanCollide == true then
-			local hitz2, enz2 = RAY(Torsoz.Position, Vector3.new(0,-4,0))
-			if hitz2 ~= nil then
-				Diving = "Rolling"
-				Action = "DiveRolling"
-			else
-				Torsoz.CFrame = Torsoz.CFrame * CFrame.new(0,-0.3,0)
-				Torsoz.Velocity = NV
-				break
-			end
-		end
-		if counter > 190 then
-			break
-		end
-		wait(0.02)
-	end
-
-	bv.velocity = (dir*20) + Vector3.new(0,-0.5,0)
-
-	local bgcf = bg.cframe
-	local haslanded = false
-	local count = 0
-
-	while haslanded == false do
-		bg.cframe = bgcf * CFrame.Angles(-0.3*count,0,0)
-		local hitz, enz = RAY(Torsoz.Position, ((Torsoz.CFrame*CFrame.new(0,-1,0)).p - Torsoz.CFrame.p).unit*1.6)
-		if hitz ~= nil and hitz.CanCollide == true then
-			haslanded = true
-		end
-		local hitz2, enz2 = RAY(Torsoz.Position, Vector3.new(0,-3.8,0))
-		if hitz2 == nil then
-			Torsoz.Velocity = NV
-			break
-		elseif haslanded == true then
-			local bp = Instance.new("BodyPosition", Torsoz)
-			bp.Name = "StaminaJumpFix"
-			bp.maxForce = Vector3.new(0,math.huge,0)
-			bp.P = 7000
-			bp.position = enz2 + Vector3.new(0,2.8,0)
-			game:service("Debris"):AddItem(bp, 0.3)
-		else
-			bv.velocity = (dir*20) + Vector3.new(0,-(Torsoz.Position - enz2).magnitude*3,0)
-
-		end
-		count = count + 1
-		if count <= 6 then
-			local i = count
-		elseif count >= 50 then
-			break
-		end
-		wait(0.02)
-	end
-
-	Torsoz.Velocity = NV
-
-	Stand()
-	DivingCooldown = 0
-end
 
 function FindSurface(part, position)
 	local obj = part.CFrame:pointToObjectSpace(position)
@@ -629,81 +510,6 @@ p.Transparency = 0.3
 	end
 end
 
-function Slide(pos)
-	Action = "Sliding"
-	Sliding = true
-	GravPoint = Torsoz.Velocity.y
-	local spd = Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude + 10
-	local dir = Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).unit
-
-	local bv = Instance.new("BodyVelocity", Torsoz)
-	bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
-	bv.velocity = dir*spd
-	local bg = Instance.new("BodyGyro", Torsoz)
-	bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
-	bg.cframe = CFrame.new(NV, dir) * CFrame.Angles(math.pi/2.2,0.24,0)
-
-
-	local count = 0
-	local lastpos
-
-	while Sliding == true do
-		count = count + 1
-		Hu.PlatformStand = true
-		local hitz1, enz1 = RAY(Torsoz.Position+Vector3.new(0,0.03,0), dir *2.5)
-		local hitz2, enz2 = RAY(Torsoz.Position-Vector3.new(0,0.2,0), dir *2.5)
-		local ghitz, genz = RAY(Torsoz.Position, Vector3.new(0,-2.6,0))
-		bv.velocity = dir*spd + Vector3.new(0,GravPoint,0)
-
-
-		if (hitz1 ~= nil and hitz1.CanCollide == true) or (hitz2 ~= nil and  hitz2.CanCollide == true) then
-			bv:remove()
-			bg:remove()
-			Sliding = "HitObject"
-		end
-		if ghitz ~= nil then
-			GravPoint = 18
-			Torsoz.CFrame = CFrame.new(genz, genz+dir) * CFrame.Angles(math.pi/2.2,0.24,0) + Vector3.new(0,0.7,0)
-			spd = spd - 0.95
-		else
-			if GravPoint > -180 then
-				GravPoint = GravPoint - 5.6
-			end
-			spd = spd - 0.36
-		end
-		if spd < 7 then
-			Sliding = false
-		end
-		wait(0.02)
-	end
-
-	if Sliding == false then
-		for i = 1, 4 do
-			local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-2.6,0))
-			bg.cframe = CFrame.new(NV, dir) * CFrame.Angles((math.pi/2.2) - ((math.pi/2.2)/4*i),0.24 - (0.24/4*i),0)
-			bv.velocity = dir*spd + Vector3.new(0,GravPoint,0)
-
-			if hitz ~= nil then
-				GravPoint = 0
-				Torsoz.CFrame = CFrame.new(enz, enz+dir) * CFrame.Angles((math.pi/2.2) - ((math.pi/2.2)/4*i),0.24 - (0.24/4*i),0) + Vector3.new(0,0.7+(1.8/4*i),0)
-				spd = spd - 0.95
-			else
-				if GravPoint > -180 then
-					GravPoint = GravPoint - 5.6
-				end
-				spd = spd - 0.36
-			end
-			wait(0.02)
-		end
-		local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-2.6,0))
-		Torsoz.CFrame = CFrame.new(enz, enz+dir) + Vector3.new(0,3,0)
-	end
-	bv:remove()
-	bg:remove()
-	SlideCooldown = 0
-	Stand()
-end
-
 function KD(key)
 	if pause.Value == false then
 		if key == string.char(32) then
@@ -789,23 +595,6 @@ function KD(key)
 
 		elseif key == string.char(48) then
 			Shift = true
-		elseif key == string.char(50) then
-			if Action == "Standing" then
-				Sit()
-			elseif HWallRunning == true then
-				HWRGravDrop = true
-			end
-		elseif key == string.char(52) then
-			if Shift == true and Action == "Standing" and SlideCooldown == 0 and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 15 and Torsoz.Velocity.y > -40 then
-				print("Sliding")
-				Slide()
-			end
-		elseif key == "a" then
-			VWRLeft = true
-		elseif key == "d" then
-			VWRRight = true
-		elseif key == "g" then
-			Dive()
 		end
 	end
 end
@@ -874,25 +663,6 @@ game:service("RunService").Stepped:connect(function()
 	end
 	if pause.Value == true then
 		Hu.WalkSpeed = 0
-	end
-	if Sitting == true then
-		local hitz2, enz2 = RAY(Torsoz.Position, Vector3.new(0,-2.2,0))
-		Hu.PlatformStand = true
-		if hitz2 == nil then
-			Stand()
-		end
-	end
-	if Diving == true then
-		Hu.PlatformStand = true
-		DivingBV.velocity = Vector3.new(DivingDir.x*(sprint+2),GravPoint,DivingDir.z*(sprint+2))
-		DivingBG.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+DivingBV.velocity) * CFrame.Angles(-math.pi/2,0,0)
-
-		if GravPoint > -180 then
-			GravPoint = GravPoint - 2
-		end
-	end
-	if DivingCooldown > 0 then
-		DivingCooldown = DivingCooldown - 1
 	end
 	if HWallRunning == true then
 		if HWRGravDrop == false then
@@ -1057,9 +827,7 @@ game:service("RunService").Stepped:connect(function()
 	end
 
 	if Action == "HWallRunning" or Action == "VWallRunning" then
-	elseif Action == "Diving" then
-	elseif Action == "Sliding" then
-	elseif Action == "Standing" or Action == "Sitting" then
+	elseif Action == "Standing" then
 
 	end
 	PrevGravAction = GravAction
