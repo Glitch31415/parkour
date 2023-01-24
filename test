@@ -7,24 +7,6 @@ print("waiting for " .. game.Players.LocalPlayer.Name)
 script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 print("i waited")
 workspace.Gravity = 196.2
-local self,player = script.Parent,game.Players.LocalPlayer
-local char = player.Character or player.CharacterAdded:wait()
-local humanoid = char:WaitForChild("Humanoid") -- waits for the humanoid in the character
-
-
-
-function antiTrans(part)
-	if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
-		part.LocalTransparencyModifier = part.Transparency
-		part.Changed:connect(function (property)    
-			part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
-		end)
-	end
-end
-
-for _,v in pairs(char:GetChildren()) do
-	antiTrans(v) -- adds all parts
-end
 local player = game.Players.LocalPlayer
 local swrs = 0
 local vtim = 0
@@ -44,9 +26,10 @@ local char = player.Character
 wait(1)
 char.Humanoid.JumpPower = 50.145
 local gp
-local Torsoz = char:WaitForChild("Torso")
+local Torsoz = char:WaitForChild("HumanoidRootPart")
 local NV = Vector3.new(0,0,0)
 local Hu = char.Humanoid
+
 local FOV = 90
 local Shift, Space, Sitting = false,false,false
 local GravPoint = 0
@@ -71,10 +54,9 @@ local Action = "Standing"
 local animplus = true
 local animspeed = 0
 local animangle = 0.01
-local Joint1, Joint2, Joint3, Joint4, Joint5
 
 for i, v in pairs(char:children()) do
-	if (v.className == "LocalScript" and v.Name == "ParkourSkrip") or v.className == "NumberValue" or v.className == "BoolValue" or v.className == "Model" or v.Name == "Animate" then
+	if (v.className == "LocalScript" and v.Name == "ParkourSkrip") or v.className == "NumberValue" or v.className == "BoolValue" or v.className == "Model" then
 		v:Destroy()
 	end
 end
@@ -89,52 +71,8 @@ local sprint = defsprint
 local pause = Instance.new("BoolValue", char)
 pause.Name = "Pause"
 pause.Value = false
-local flow = Instance.new("NumberValue", char)
-flow.Name = "Flow"
-flow.Value = 0
-local flowcooldown = 0
-
-local m = Instance.new("Model", char)
-m.Name = "FlowChainPartz"
-
-local P = Instance.new("Part")
-P.Name = "TrailPart"
-P.formFactor = "Custom"
-P.Size = Vector3.new(0.2,0.2,0.2)
-P.Locked = true
-P.Anchored = true
-P.CanCollide = false
-P.TopSurface = 0
-P.BottomSurface = 0
 
 script.Name = "ParkourSkrip"
-
-local hue = 0
-
-function HSV(H,S,V)
-	H = H % 360
-	local C = V * S
-	local H2 = H/60
-	local X = C * (1 - math.abs((H2 %2) -1))
-	local color = Color3.new(0,0,0)
-	if H2 <= 0 then
-		color = Color3.new(C,0,0)
-	elseif 0 <= H2 and H2 <= 1 then
-		color = Color3.new(C,X,0)
-	elseif 1 <= H2 and H2 <= 2 then
-		color = Color3.new(X,C,0)
-	elseif 2 <= H2 and H2 <= 3 then
-		color = Color3.new(0,C,X)
-	elseif 3 <= H2 and H2 <= 4 then
-		color = Color3.new(0,X,C)
-	elseif 4 <= H2 and H2 <= 5 then
-		color = Color3.new(X,0,C)
-	elseif 5 <= H2 and H2 <= 6 then
-		color = Color3.new(C,0,X)
-	end
-	local m = V - C
-	return Color3.new(color.r + m, color.g + m, color.b + m)
-end
 
 
 function LoadTextures()
@@ -265,10 +203,6 @@ function Stand()
 			v:remove()
 		end
 	end
-	RH.Part0 = nil
-	LH.Part0 = nil
-	RS.Part0 = nil
-	LS.Part0 = nil
 	Sitting = false
 	Diving = false
 	Standing = true
@@ -279,10 +213,6 @@ end
 
 function Dive()
 	stamina = stamina - 10
-	flow.Value = flow.Value + 10
-	if flow.Value > 100 then
-		flow.Value = 100
-	end
 	Standing = false
 	local dir = Vector3.new(Torsoz.CFrame.lookVector.x,0,Torsoz.CFrame.lookVector.z)
 	GravPoint = -10
@@ -304,7 +234,6 @@ function Dive()
 	DivingBG = bg
 
 
-	local joint5 = Joint5
 
 	Diving = true
 	Action = "Diving"
@@ -326,7 +255,6 @@ function Dive()
 			else
 				Torsoz.CFrame = Torsoz.CFrame * CFrame.new(0,-0.3,0)
 				Torsoz.Velocity = NV
-				flow.Value = 0
 				break
 			end
 		end
@@ -396,8 +324,10 @@ end
 
 function HWallRun(part, pos, side)
 	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part") and hfd == false and vfd == false and Torsoz.Velocity.y > -50 then
+		Hu:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		Hu:ChangeState(Enum.HumanoidStateType.Running)
 		hfd = true
-		flow.Value = flow.Value + 9
 		Standing = false
 		HWallRunning = true
 		Action = "HWallRunning"
@@ -533,11 +463,16 @@ function HWallRun(part, pos, side)
 		Stand()
 		HWallRunning = false
 		Space = false
+		Hu:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
 		while hwd == false do
 			wait(0.02)
-			if htim < 25 and Space == true and hwd == false then
+			htim = htim + 1
+			print(htim)
+			if htim < 15 and Space == true and hwd == false then
 				print("HWR boost")
-				htim = htim + 1
+
+
 				if stamina - (chg*2.5) > 0 then
 					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 					stamina = stamina-(chg*2.5)
@@ -550,6 +485,9 @@ function HWallRun(part, pos, side)
 				hwd = true
 				hfd = false
 			end
+			if htim >= 15 then
+				hwd = true
+			end
 		end
 		hfd = false
 		htim = 0
@@ -559,10 +497,12 @@ end
 
 function VWR(part, pos)
 	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0) and vfd == false and hfd == false then
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		Hu:ChangeState(Enum.HumanoidStateType.Climbing)
 		vfd = true
 		print("VWR Activated")
 		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/2,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/2)
-		flow.Value = flow.Value + 9
 		Standing = false
 		VWallRunning = true
 		Action = "VWallRunning"
@@ -650,7 +590,6 @@ p.Transparency = 0.3
 			end
 		end
 		if stamina < 16 then
-			print("e")
 			vwrc = 60
 		end
 
@@ -662,9 +601,13 @@ p.Transparency = 0.3
 		VWallRunning = false
 		Stand()
 		Space = false
-		while vtim < 25 and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall and cdb == false do
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+		Hu:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
+		while vtim < 15 and cdb == false do
 			wait(0.02)
 			vtim = vtim + 1
+			print(vtim)
 			if Space == true and cdb == false then
 				print("VWR boost")
 				if stamina - (chg*2.5) > 0 then
@@ -682,11 +625,11 @@ p.Transparency = 0.3
 		end
 		vtim = 0
 		vfd = false
+
 	end
 end
 
 function Slide(pos)
-	flow.Value = flow.Value + 6
 	Action = "Sliding"
 	Sliding = true
 	GravPoint = Torsoz.Velocity.y
@@ -700,11 +643,6 @@ function Slide(pos)
 	bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 	bg.cframe = CFrame.new(NV, dir) * CFrame.Angles(math.pi/2.2,0.24,0)
 
-	local joint1 = Joint1
-	local joint2 = Joint2
-	local joint3 = Joint3
-	local joint4 = Joint4
-	local joint5 = Joint5
 
 	local count = 0
 	local lastpos
@@ -900,8 +838,6 @@ animatebg.D = 100
 local GravAction = "Idle"
 local PrevGravAction = GravAction
 
-local prevrapos = (RA.CFrame * CFrame.new(0,-1,0)).p
-local prevlapos = (LA.CFrame * CFrame.new(0,-1,0)).p
 local hue = 0
 local recyclecount = 0
 local tickoffset = tick()
@@ -909,22 +845,6 @@ local fadetab = {}
 local fadetab2 = {}
 local animatebgcount = 0
 
-for i = 1, 13 do
-	local p = P:Clone()
-	p.Name = "Part"..i
-	local mesh = Instance.new("SpecialMesh", p)
-	mesh.MeshId = "http://www.roblox.com/Asset/?id=9856898"
-	mesh.TextureId = "http://www.roblox.com/Asset/?id=48358980"
-	table.insert(fadetab, {p, mesh})
-end
-for i = 1, 13 do
-	local p = P:Clone()
-	p.Name = "Part"..i
-	local mesh = Instance.new("SpecialMesh", p)
-	mesh.MeshId = "http://www.roblox.com/Asset/?id=9856898"
-	mesh.TextureId = "http://www.roblox.com/Asset/?id=48358980"
-	table.insert(fadetab2, {p, mesh})
-end
 
 game:service("RunService").Stepped:connect(function()
 	GravAction = "Idle"
@@ -1123,54 +1043,7 @@ game:service("RunService").Stepped:connect(function()
 		animatebg.Parent = nil
 	end
 
-	if math.abs(tickoffset - tick()) > 0.05 then
-		tickoffset = tick()
-		local flowcolor = HSV(hue, 0.7,1)
-		recyclecount = (recyclecount % #fadetab) + 1
-		if flow.Value > 25 then
-			local lapos = (LA.CFrame * CFrame.new(0,-1,0)).p
-			local rapos = (RA.CFrame * CFrame.new(0,-1,0)).p
-			local p = fadetab[recyclecount]
-			p[1].Parent = m
-			p[1].CFrame = CFrame.new((lapos+prevlapos)/2, lapos)
-			p[2].Scale = Vector3.new(0.5,0.5,(lapos-prevlapos).magnitude*2)
-			p[2].VertexColor = Vector3.new(flowcolor.r,flowcolor.g,flowcolor.b)
-			p[1].Transparency = math.abs((flow.Value/120) - 0.8)
-			p[1].Transparency = p[1].Transparency + (1/#fadetab)
-			local p = fadetab2[recyclecount]
-			p[1].Parent = m
-			p[1].CFrame = CFrame.new((rapos+prevrapos)/2, rapos)
-			p[2].Scale = Vector3.new(0.5,0.5,(rapos-prevrapos).magnitude*2)
-			p[2].VertexColor = Vector3.new(flowcolor.r,flowcolor.g,flowcolor.b)
-			p[1].Transparency = math.abs((flow.Value/120) - 0.8)
-			p[1].Transparency = p[1].Transparency + (1/#fadetab)
-		end
 
-		for i, v in pairs(fadetab) do
-			if v[1].Transparency < 0.9 then
-				v[1].Transparency = v[1].Transparency + (1/#fadetab)
-				fadetab2[i][1].Transparency = fadetab2[i][1].Transparency + (1/#fadetab)
-			elseif v[1].Transparency ~= 1 then
-				v[1].Transparency = 1
-				v[1].Position = Vector3.new(50000,0,0)
-				fadetab2[i][1].Transparency = 1
-				fadetab2[i][1].Position = Vector3.new(50000,0,0)
-			end
-		end
-
-		prevrapos = (RA.CFrame * CFrame.new(0,-1,0)).p
-		prevlapos = (LA.CFrame * CFrame.new(0,-1,0)).p
-	end
-
-	if flow.Value > 140 then
-		if char.Parent ~= nil then
-			char:remove()
-		end
-	end
-
-	if flowcooldown > 0 then
-		flowcooldown = flowcooldown - 1
-	end
 	if HWRCooldown > 0 then
 		HWRCooldown = HWRCooldown - 1
 	end
@@ -1184,25 +1057,11 @@ game:service("RunService").Stepped:connect(function()
 	end
 
 	if Action == "HWallRunning" or Action == "VWallRunning" then
-		flow.Value = flow.Value + 0.24
-		if flow.Value > 100 then
-			flow.Value = 100
-		end
-		flowcooldown = 0
 	elseif Action == "Diving" then
-		flowcooldown = 0
 	elseif Action == "Sliding" then
-		flowcooldown = 0
 	elseif Action == "Standing" or Action == "Sitting" then
-		if flow.Value > 0 and flowcooldown <= 0 then
-			flow.Value = flow.Value - 0.37
-			if flow.Value < 0 then
-				flow.Value = 0
-			end
-		end
+
 	end
-	prevanimbgcount = animatebgcount
-	sprint = defsprint + ((flow.Value/100)*2.4)
 	PrevGravAction = GravAction
 	Calculate()
 end)
