@@ -350,7 +350,7 @@ function HWallRun(part, pos, side)
 			wait(0.02)
 			htim = htim + 1
 			print(htim)
-			if htim < 15 and Space == true and hwd == false then
+			if htim < 8 and Space == true and hwd == false then
 				print("HWR boost")
 
 
@@ -366,7 +366,7 @@ function HWallRun(part, pos, side)
 				hwd = true
 				hfd = false
 			end
-			if htim >= 15 then
+			if htim >= 8 then
 				hwd = true
 			end
 		end
@@ -485,7 +485,7 @@ p.Transparency = 0.3
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Running,true)
 		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
-		while vtim < 15 and cdb == false do
+		while vtim < 8 and cdb == false do
 			wait(0.02)
 			vtim = vtim + 1
 			print(vtim)
