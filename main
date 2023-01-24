@@ -71,8 +71,8 @@ local sprint = defsprint
 local pause = Instance.new("BoolValue", char)
 pause.Name = "Pause"
 pause.Value = false
-Hu:SetStateEnabled(stateType.FallingDown, false)
-Hu:SetStateEnabled(stateType.Ragdoll, false)
+Hu:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+Hu:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
 script.Name = "ParkourSkrip"
 
 
