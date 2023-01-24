@@ -355,11 +355,11 @@ function HWallRun(part, pos, side)
 
 
 				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
 					stamina = stamina-(chg*2.5)
 					chg = 0
 				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
 					stamina = 0
 					chg = 0
 				end
@@ -492,11 +492,11 @@ p.Transparency = 0.3
 			if Space == true and cdb == false then
 				print("VWR boost")
 				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
 					stamina = stamina-(chg*2.5)
 					chg = 0
 				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
 					stamina = 0
 					chg = 0
 				end
@@ -692,11 +692,11 @@ game:service("RunService").Stepped:connect(function()
 	if Shift == true then
 		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
 			if stamina - (chg*2.5) > 0 then
-				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
 				chg = 0
 			else
-				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
 				stamina = 0
 				chg = 0
 			end
