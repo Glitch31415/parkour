@@ -639,8 +639,6 @@ game:service("RunService").Stepped:connect(function()
 		Hu.WalkSpeed = ((Torsoz.Velocity.X+Torsoz.Velocity.Z)/2)/0.1
 		print(((Torsoz.Velocity.X+Torsoz.Velocity.Z)/2)/1.25)
 	else
-		print("not falling idk")
-		print(Hu:GetState())
 		if GravAction ~= "Falling" then
 			Hu.WalkSpeed = 16+(chg/3.125)
 		end
