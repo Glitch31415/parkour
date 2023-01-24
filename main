@@ -74,46 +74,6 @@ pause.Value = false
 Hu:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
 Hu:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
 script.Name = "ParkourSkrip"
-fallingqw = false
-jumpedqw = false
-function hiqw(eqw)
-	if eqw == true then
-		fallingqw = true
-		if jumpedqw == true then
-			print("boosting")
-			jumpedqw = false
-			vectorqw = char.HumanoidRootPart.CFrame.LookVector
-			xqw = (char.HumanoidRootPart.Velocity.X)--+(vectorqw.X*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
-			zqw = (char.HumanoidRootPart.Velocity.Z)--+(vectorqw.Z*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
-		else
-			xqw = char.HumanoidRootPart.Velocity.X
-			zqw = char.HumanoidRootPart.Velocity.Z
-		end
-		wsqw = char.Humanoid.WalkSpeed
-		jumpedqw = false
-	else
-		fallingqw = false
-		char.Humanoid.WalkSpeed = wsqw
-		char.HumanoidRootPart.Velocity = Vector3.new(xqw,0,zqw)
-		jumpedqw = false
-	end
-end
-function jumpqw()
-	jumpedqw = true
-end
-function runqw(timqw)
-	if fallingqw == true then
-		if char.Humanoid.WalkSpeed ~= 0 then
-			wsqw = char.Humanoid.WalkSpeed
-		end
-		char.Humanoid.WalkSpeed = 0
-		char.HumanoidRootPart.CFrame = char.HumanoidRootPart.CFrame+Vector3.new(xqw*timqw,0,zqw*timqw)
-		xqw = xqw/1.025
-		zqw = zqw/1.025
-	end
-end
-char.Humanoid.FreeFalling:Connect(hiqw)
-char.Humanoid.Jumping:Connect(jumpqw)
 
 function LoadTextures()
 	local pls = game:service("ContentProvider")
@@ -673,7 +633,6 @@ local tickoffset = tick()
 local fadetab = {}
 local fadetab2 = {}
 local animatebgcount = 0
-game["Run Service"].RenderStepped:Connect(runqw)
 
 game:service("RunService").Stepped:connect(function()
 	GravAction = "Idle"
