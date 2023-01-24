@@ -82,19 +82,19 @@ function hiqw(eqw)
 		if jumpedqw == true then
 			print("boosting")
 			jumpedqw = false
-			vectorqw = script.Parent.HumanoidRootPart.CFrame.LookVector
-			xqw = (script.Parent.HumanoidRootPart.Velocity.X)+(vectorqw.X*(math.sqrt((script.Parent.HumanoidRootPart.Velocity.Z^2)+(script.Parent.HumanoidRootPart.Velocity.X^2))/(5)))
-			zqw = (script.Parent.HumanoidRootPart.Velocity.Z)+(vectorqw.Z*(math.sqrt((script.Parent.HumanoidRootPart.Velocity.Z^2)+(script.Parent.HumanoidRootPart.Velocity.X^2))/(5)))
+			vectorqw = char.HumanoidRootPart.CFrame.LookVector
+			xqw = (char.HumanoidRootPart.Velocity.X)+(vectorqw.X*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
+			zqw = (char.HumanoidRootPart.Velocity.Z)+(vectorqw.Z*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
 		else
-			xqw = script.Parent.HumanoidRootPart.Velocity.X
-			zqw = script.Parent.HumanoidRootPart.Velocity.Z
+			xqw = char.HumanoidRootPart.Velocity.X
+			zqw = char.HumanoidRootPart.Velocity.Z
 		end
-		wsqw = script.Parent.Humanoid.WalkSpeed
+		wsqw = char.Humanoid.WalkSpeed
 		jumpedqw = false
 	else
 		fallingqw = false
-		script.Parent.Humanoid.WalkSpeed = wsqw
-		script.Parent.HumanoidRootPart.Velocity = Vector3.new(xqw,0,zqw)
+		char.Humanoid.WalkSpeed = wsqw
+		char.HumanoidRootPart.Velocity = Vector3.new(xqw,0,zqw)
 		jumpedqw = false
 	end
 end
@@ -103,17 +103,17 @@ function jumpqw()
 end
 function runqw(timqw)
 	if fallingqw == true then
-		if script.Parent.Humanoid.WalkSpeed ~= 0 then
-			wsqw = script.Parent.Humanoid.WalkSpeed
+		if char.Humanoid.WalkSpeed ~= 0 then
+			wsqw = char.Humanoid.WalkSpeed
 		end
-		script.Parent.Humanoid.WalkSpeed = 0
-		script.Parent.HumanoidRootPart.CFrame = script.Parent.HumanoidRootPart.CFrame+Vector3.new(xqw*timqw,0,zqw*timqw)
+		char.Humanoid.WalkSpeed = 0
+		char.HumanoidRootPart.CFrame = char.HumanoidRootPart.CFrame+Vector3.new(xqw*timqw,0,zqw*timqw)
 		xqw = xqw/1.0025
 		zqw = zqw/1.0025
 	end
 end
-script.Parent.Humanoid.FreeFalling:Connect(hiqw)
-script.Parent.Humanoid.Jumping:Connect(jumpqw)
+char.Humanoid.FreeFalling:Connect(hiqw)
+char.Humanoid.Jumping:Connect(jumpqw)
 
 function LoadTextures()
 	local pls = game:service("ContentProvider")
