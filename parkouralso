@@ -14,16 +14,16 @@ local humanoid = char:WaitForChild("Humanoid") -- waits for the humanoid in the 
 
 
 function antiTrans(part)
-if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
-part.LocalTransparencyModifier = part.Transparency
-part.Changed:connect(function (property)    
-part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
-end)
-end
+	if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
+		part.LocalTransparencyModifier = part.Transparency
+		part.Changed:connect(function (property)    
+			part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
+		end)
+	end
 end
 
 for _,v in pairs(char:GetChildren()) do
-antiTrans(v) -- adds all parts
+	antiTrans(v) -- adds all parts
 end
 local player = game.Players.LocalPlayer
 local swrs = 0
@@ -680,7 +680,7 @@ function HWallRun(part, pos, side)
 			bv.Parent = Torsoz
 			--bv.velocity = (dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
 			mix = Vector3.new(char.HumanoidRootPart.Velocity.X,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z)
-			mix = (mix+(dir*(sprint-0.5)))/2
+			--mix = (mix+(dir*(sprint-0.5)))/2
 			bv.velocity = Vector3.new(mix.X,(dir.Y*(sprint-0.5)),mix.Z) + Vector3.new(0,GravPoint,0)
 			bg.cframe = bg.cframe * CFrame.Angles(aniangle/80,aniangle/80,0)
 			Torsoz.CFrame = Torsoz.CFrame * CFrame.Angles(aniangle/80,aniangle/80,0)
@@ -821,7 +821,7 @@ p.Transparency = 0.3
 					bv.Velocity = char.HumanoidRootPart.Velocity
 				end
 
-					--(dir*(sprint-1))*percent
+				--(dir*(sprint-1))*percent
 
 				bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0) * CFrame.Angles(0,aniangle/60,0)
 
@@ -837,11 +837,11 @@ p.Transparency = 0.3
 				end
 
 				--if hitz2 ~= nil then
-					--percent = 0
-					--VWallRunning = "Falling"
-					--Action = "VWRFalling"
-					--GravPoint = -7
-					--break
+				--percent = 0
+				--VWallRunning = "Falling"
+				--Action = "VWRFalling"
+				--GravPoint = -7
+				--break
 				--end
 
 				wait(0.02)
@@ -1260,7 +1260,7 @@ game:service("RunService").Stepped:connect(function()
 		if chg <= 98 then
 			chg = chg+2
 		end
-		
+
 	else
 		if chg >= 3 then
 			chg = chg - 3
