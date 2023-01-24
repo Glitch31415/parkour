@@ -83,8 +83,8 @@ function hiqw(eqw)
 			print("boosting")
 			jumpedqw = false
 			vectorqw = char.HumanoidRootPart.CFrame.LookVector
-			xqw = (char.HumanoidRootPart.Velocity.X)+(vectorqw.X*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
-			zqw = (char.HumanoidRootPart.Velocity.Z)+(vectorqw.Z*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
+			xqw = (char.HumanoidRootPart.Velocity.X)--+(vectorqw.X*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
+			zqw = (char.HumanoidRootPart.Velocity.Z)--+(vectorqw.Z*(math.sqrt((char.HumanoidRootPart.Velocity.Z^2)+(char.HumanoidRootPart.Velocity.X^2))/(5)))
 		else
 			xqw = char.HumanoidRootPart.Velocity.X
 			zqw = char.HumanoidRootPart.Velocity.Z
