@@ -636,7 +636,7 @@ local animatebgcount = 0
 
 game:service("RunService").Stepped:connect(function()
 	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
-		Hu.WalkSpeed = ((math.abs(Torsoz.Velocity.X)+math.abs(Torsoz.Velocity.Z))/2)/1.01
+		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.01
 	else
 		if GravAction ~= "Falling" then
 			Hu.WalkSpeed = 16+(chg/3.125)
