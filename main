@@ -635,6 +635,13 @@ local fadetab2 = {}
 local animatebgcount = 0
 
 game:service("RunService").Stepped:connect(function()
+	if (Hu:GetState() == Enum.HumanoidStateType.Falling) or (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
+		Hu.WalkSpeed = ((Torsoz.Velocity.X+Torsoz.Velocity.Z)/2)/1.25
+	else
+		if GravAction ~= "Falling" then
+			Hu.WalkSpeed = 16+(chg/3.125)
+		end
+	end
 	GravAction = "Idle"
 	hue = hue + 3
 	hue = hue % 360
@@ -652,9 +659,6 @@ game:service("RunService").Stepped:connect(function()
 	end
 
 	local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-3.9,0))
-	if GravAction ~= "Falling" then
-		Hu.WalkSpeed = 16+(chg/3.125)
-	end
 	if (FOV >= 70 and FOV < 74) and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 25 then
 		FOV = FOV + 1
 	elseif (FOV <= 74 and FOV > 70) and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude < 20 then
