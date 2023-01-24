@@ -3,15 +3,38 @@ game.Players.LocalPlayer.CharacterAdded:connect(function()
 	script.Disabled = true
 	script:Destroy()
 end)
---print("waiting for " .. game.Players.LocalPlayer.Name)
---script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
---print("i waited")
+print("waiting for " .. game.Players.LocalPlayer.Name)
+script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+print("i waited")
 workspace.Gravity = 196.2
+local self,player = script.Parent,game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:wait()
+local humanoid = char:WaitForChild("Humanoid") -- waits for the humanoid in the character
 
+
+
+function antiTrans(part)
+	if part and part:IsA("BasePart") and( part.Name=="Left Arm" or part.Name=="Right Arm") then -- checks if a part and is a arm
+		part.LocalTransparencyModifier = part.Transparency
+		part.Changed:connect(function (property)    
+			part.LocalTransparencyModifier = part.Transparency--Changes the local modifyer(client side only)
+		end)
+	end
+end
+
+for _,v in pairs(char:GetChildren()) do
+	antiTrans(v) -- adds all parts
+end
 local player = game.Players.LocalPlayer
 local swrs = 0
+local vtim = 0
+local htim = 0
 local chg = 0
 local cje = false
+local hwd = false
+local cdb = false
+local hfd = false
+local vfd = false
 vwrc = 0
 local abort = false
 local mouse = player:GetMouse()
@@ -68,8 +91,8 @@ end
 
 local loadids = {112474909, 112474911, 112474909}
 
-local stamina = 1000
-local maxstamina = 1000
+local stamina = 1000000
+local maxstamina = 1000000
 local defsprint = 32
 local sprint = defsprint  
 
@@ -123,75 +146,6 @@ function HSV(H,S,V)
 	return Color3.new(color.r + m, color.g + m, color.b + m)
 end
 
-function GetWeld(weld)
-	if weld:findFirstChild("XAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "XAngle"
-	end
-	if weld:findFirstChild("YAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "YAngle"
-	end
-	if weld:findFirstChild("ZAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "ZAngle"
-	end
-	return weld.C0.p, Vector3.new(weld.XAngle.Value, weld.YAngle.Value, weld.ZAngle.Value)
-end
-
-function SetWeld(weld, i, loops, origpos,origangle, nextpos,nextangle)
-	if weld:findFirstChild("XAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "XAngle"
-	end
-	if weld:findFirstChild("YAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "YAngle"
-	end
-	if weld:findFirstChild("ZAngle") == nil then
-		local a = Instance.new("NumberValue", weld)
-		a.Name = "ZAngle"
-	end
-
-	local tox,toy,toz = 0,0,0
-	if origangle.x > nextangle.x then
-		tox = -math.abs(origangle.x - nextangle.x) /loops*i
-	else
-		tox = math.abs(origangle.x - nextangle.x) /loops*i
-	end
-	if origangle.y > nextangle.y then
-		toy = -math.abs(origangle.y - nextangle.y) /loops*i
-	else
-		toy = math.abs(origangle.y - nextangle.y) /loops*i
-	end
-	if origangle.z > nextangle.z then
-		toz = -math.abs(origangle.z - nextangle.z) /loops*i
-	else
-		toz = math.abs(origangle.z - nextangle.z) /loops*i
-	end
-
-	local tox2,toy2,toz2 = 0,0,0
-	if origpos.x > nextpos.x then
-		tox2 = -math.abs(origpos.x - nextpos.x) /loops*i
-	else
-		tox2 = math.abs(origpos.x - nextpos.x) /loops*i
-	end
-	if origpos.y > nextpos.y then
-		toy2 = -math.abs(origpos.y - nextpos.y) /loops*i
-	else
-		toy2 = math.abs(origpos.y - nextpos.y) /loops*i
-	end
-	if origpos.z > nextpos.z then
-		toz2 = -math.abs(origpos.z - nextpos.z) /loops*i
-	else
-		toz2 = math.abs(origpos.z - nextpos.z) /loops*i
-	end
-
-	weld.XAngle.Value = origangle.x + tox
-	weld.YAngle.Value = origangle.y + toy
-	weld.ZAngle.Value = origangle.z + toz
-	weld.C0 = CFrame.new(origpos.x + tox2,origpos.y + toy2,origpos.z + toz2) * CFrame.Angles(origangle.x + tox,origangle.y + toy,origangle.z + toz)
-end
 
 function LoadTextures()
 	local pls = game:service("ContentProvider")
@@ -212,15 +166,15 @@ function CreateGui()
 	g.Name = "staminaGui"
 
 	c = Instance.new("Frame", g)
-	c.Visible = true
-	c.Size = UDim2.new(0,150,0,450)
-	c.BackgroundTransparency = 0
+	c.Visible = false
+	c.Size = UDim2.new(0,150,0.5,0)
+	c.BackgroundTransparency = 1
 	c.Position = UDim2.new(1,-150,0.25,0)
 	c.Name = "Container"
 
 	t = Instance.new("TextLabel", c)
-	t.Size = UDim2.new(1,0,0.2,0)
-	t.Position = UDim2.new(0.5,0,0.25,0)
+	t.Size = UDim2.new(0,0,0.2,0)
+	t.Position = UDim2.new(0.5,0,0.4,0)
 	t.TextXAlignment = "Right"
 	t.Font = "ArialBold"
 	t.TextTransparency = 0.1
@@ -231,11 +185,11 @@ function CreateGui()
 	t.BackgroundTransparency = 1
 	t2 = t:Clone()
 	t2.Parent = c
-	t2.Size = UDim2.new(1,0,0.2,0)
-	t2.Position = UDim2.new(0.5,0,0.75,0)
+	t2.Size = UDim2.new(0,0,0.2,0)
+	t2.Position = UDim2.new(0.5,0,0.6,0)
 	l = t:Clone()
 	l.Parent = c
-	l.Size = UDim2.new(1,0,0.2,0)
+	l.Size = UDim2.new(0,0,0.2,0)
 	l.Position = UDim2.new(0.5,0,0.5,0)
 	l.Text = "-----"
 
@@ -302,18 +256,6 @@ function Sit()
 		bg.maxTorque = Vector3.new(math.huge,math.huge,math.huge)
 		bg.cframe = cf
 		bg.D = 100
-		SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.34,-1,0.2), Vector3.new((math.pi/2)-(math.pi/6),0,math.pi/8))
-		SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.34,-1,0.2), Vector3.new((math.pi/2)-(math.pi/6),0,-math.pi/8))
-
-		if hitz2 ~= nil and hitz2.CanCollide == true then
-			Joint3.C0 = CFrame.new(0.9,0.4,-0.45) * CFrame.Angles(0,math.pi/2.13,0) * CFrame.Angles(math.pi/2.3,0,0)
-			Joint4.C0 = CFrame.new(-0.9,0.4,-0.4) * CFrame.Angles(0,-math.pi/2.05,0) * CFrame.Angles(math.pi/2.3,0,0)
-			Joint5.C0 = CFrame.new(0,1,0) * CFrame.Angles(-math.pi/8.8,0,0)
-		else
-			SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.4,0.4,0.1), Vector3.new(-(math.pi/6)-(math.pi/10),0,math.pi/9))
-			SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.4,0.4,0.1), Vector3.new(-(math.pi/6)-(math.pi/10),0,-math.pi/9))
-			SetWeld(Joint5,1,1, NV,NV, Vector3.new(0,1,0), Vector3.new(-math.pi/12,0,0))
-		end
 
 		Sitting = true
 		Action = "Sitting"
@@ -337,26 +279,6 @@ function Stand()
 	LH.Part0 = nil
 	RS.Part0 = nil
 	LS.Part0 = nil
-	Joint1.Part0 = Torsoz
-	Joint1.Part1 = RL
-	Joint1.C0 = CFrame.new(0.5,-1,0)
-	Joint1.C1 = CFrame.new(0,1,0)
-	Joint2.Part0 = Torsoz
-	Joint2.Part1 = LL
-	Joint2.C0 = CFrame.new(-0.5,-1,0)
-	Joint2.C1 = CFrame.new(0,1,0)
-	Joint3.Part0 = Torsoz
-	Joint3.Part1 = RA
-	Joint3.C0 = CFrame.new(1.5,0.5,0)
-	Joint3.C1 = CFrame.new(0,0.5,0)
-	Joint4.Part0 = Torsoz
-	Joint4.Part1 = LA
-	Joint4.C0 = CFrame.new(-1.5,0.5,0)
-	Joint4.C1 = CFrame.new(0,0.5,0)
-	Joint5.Part0 = Torsoz
-	Joint5.Part1 = H
-	Joint5.C0 = CFrame.new(0,1,0)
-	Joint5.C1 = CFrame.new(0,-0.5,0)
 	Sitting = false
 	Diving = false
 	Standing = true
@@ -391,14 +313,6 @@ function Dive()
 	bg.D = 100
 	DivingBG = bg
 
-	local joint = Joint3
-	joint.C1 = CFrame.new(0,0.5,0)
-	local joint2 = Joint4
-	joint2.C1 = CFrame.new(0,0.5,0)
-	local joint3 = Joint1
-	joint3.C1 = CFrame.new(0,1,0)
-	local joint4 = Joint2
-	joint4.C1 = CFrame.new(0,1,0)
 
 	local joint5 = Joint5
 
@@ -406,11 +320,6 @@ function Dive()
 	Action = "Diving"
 
 	for i = 1, 8 do
-		SetWeld(joint,i,8, Vector3.new(1.5,0.5,0), NV, Vector3.new(1.45,0.5,0.1), Vector3.new(-0.2,-math.pi/9,math.pi/13))
-		SetWeld(joint2,i,8, Vector3.new(-1.5,0.5,0), NV, Vector3.new(-1.45,0.5,0.1), Vector3.new(-0.2,math.pi/9,-math.pi/13))
-		SetWeld(joint3,i,8, Vector3.new(0.5,-1,0), NV, Vector3.new(0.5,-1,0.03), Vector3.new(-0.2,-math.pi/10,math.pi/14))
-		SetWeld(joint4,i,8, Vector3.new(-0.5,-1,0), NV, Vector3.new(-0.5,-1,0.03), Vector3.new(-0.2,math.pi/10,-math.pi/14))
-		SetWeld(joint5,i,8, Vector3.new(0,1,0), NV, Vector3.new(0,1,0), Vector3.new(0.45,0,0))
 		wait(0.025)
 	end
 
@@ -467,16 +376,6 @@ function Dive()
 		count = count + 1
 		if count <= 6 then
 			local i = count
-			local j1,j1a = GetWeld(joint)
-			local j2,j2a = GetWeld(joint2)
-			local j3,j3a = GetWeld(joint3)
-			local j4,j4a = GetWeld(joint4)
-			local j5,j5a = GetWeld(joint5)
-			SetWeld(joint,i,6, j1,j1a, Vector3.new(1.35,0.5,-0.2), Vector3.new(math.pi/2.6,0,-math.pi/5.8))
-			SetWeld(joint2,i,6, j2,j2a, Vector3.new(-1.35,0.5,-0.2), Vector3.new(math.pi/2.6,0,math.pi/5.8))
-			SetWeld(joint3,i,6, j3,j3a, Vector3.new(0.51,0.4,-0.6), Vector3.new(-0.1,0,0.05))
-			SetWeld(joint4,i,6, j4,j4a, Vector3.new(-0.51,0.4,-0.6), Vector3.new(-0.1,0,-0.05))
-			SetWeld(joint5,i,6, j5,j5a, Vector3.new(0,1,0), Vector3.new(-0.4,0,0))
 		elseif count >= 50 then
 			break
 		end
@@ -506,7 +405,8 @@ function FindSurface(part, position)
 end
 
 function HWallRun(part, pos, side)
-	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part") and hfd == false and vfd == false and Torsoz.Velocity.y > -50 then
+		hfd = true
 		flow.Value = flow.Value + 9
 		Standing = false
 		HWallRunning = true
@@ -529,42 +429,6 @@ function HWallRun(part, pos, side)
 
 		local sid = Instance.new("Snap")
 
-		local joint1 = Joint3
-		if side == -math.pi/2 then
-			SetWeld(joint1,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(math.pi/1.3,0.1,math.pi/2.5))
-		else
-			sid = joint1
-			SetWeld(joint1,1,1, NV,NV, Vector3.new(1.4,0.6,0), Vector3.new(-math.pi/12,0,math.pi/7))
-		end
-		local j1c0 = joint1.C0
-
-		local joint2 = Joint4
-		if side == math.pi/2 then
-			SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new(math.pi/1.3,-0.1,-math.pi/2.5))
-		else
-			sid = joint2
-			SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.4,0.6,0), Vector3.new(-math.pi/12,0,-math.pi/7))
-		end
-		local j2c0 = joint2.C0
-
-		local joint3 = Joint1
-		joint3.C1 = CFrame.new(0,1,0)
-		if side == -math.pi/2 then
-			SetWeld(joint3,1,1, NV,NV, Vector3.new(0.5,-0.38,-0.3), Vector3.new(0,math.pi/2,0.14))
-		else
-			SetWeld(joint3,1,1, NV,NV, Vector3.new(0.5,-0.8,-0.2), Vector3.new(0,math.pi/2,0.2))
-		end
-
-		local joint4 = Joint2
-		joint4.C1 = CFrame.new(0,1,0)
-		if side == -math.pi/2 then
-			SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.5,-0.8,-0.2), Vector3.new(0,0,0.2))
-		else
-			SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.5,-0.38,-0.3), Vector3.new(0,0,0.14))
-		end
-
-		local joint5 = Joint5
-		SetWeld(joint5,1,1,NV,NV,Vector3.new(0,0.9,0),Vector3.new(0,0,side/7))
 
 		Torsoz.CFrame = CFrame.new(pos+(towall*-2), pos) * CFrame.Angles(0,-side,-side/2.2)
 		bg.cframe = CFrame.new(pos+(towall*-2), pos) * CFrame.Angles(0,-side,-side/2.2)
@@ -576,8 +440,8 @@ function HWallRun(part, pos, side)
 
 		local prevpart = part
 		HWRLastPart = part
-		while HWallRunning == true and abort == false do
-
+		while HWallRunning == true and abort == false and Space == true do
+			hwd = false
 			if aniangle > math.pi then
 				aniplus = false
 			elseif aniangle < -math.pi then
@@ -630,7 +494,6 @@ function HWallRun(part, pos, side)
 						---- if player fails to find new wall to run on
 						Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 						bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-						Torsoz.Velocity = NV
 						HWRCooldown = 0
 						break
 					end
@@ -642,7 +505,6 @@ function HWallRun(part, pos, side)
 				---- if player ends wall run at end of wall
 				Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 				bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-				Torsoz.Velocity = NV
 				HWRCooldown = 0
 				break
 			end
@@ -651,35 +513,26 @@ function HWallRun(part, pos, side)
 			if hitz3 ~= nil and hitz3.CanCollide == true then
 				Torsoz.CFrame = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
 				bg.cframe = CFrame.new(Torsoz.Position, Torsoz.Position+dir)
-				Torsoz.Velocity = NV
 				HWRCooldown = 0
 				break
 			end
 
 			bv.Parent = Torsoz
-			bv.velocity = (dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
+			--bv.velocity = (dir*(sprint-0.5)) + Vector3.new(0,GravPoint,0)
+			mix = Vector3.new(char.HumanoidRootPart.Velocity.X,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z)
+			--mix = (mix+(dir*(sprint-0.5)))/2
+			bv.velocity = Vector3.new(mix.X,(dir.Y*(sprint-0.5)),mix.Z) + Vector3.new(0,GravPoint,0)
 			bg.cframe = bg.cframe * CFrame.Angles(aniangle/80,aniangle/80,0)
 			Torsoz.CFrame = Torsoz.CFrame * CFrame.Angles(aniangle/80,aniangle/80,0)
-			local j3,j3a = GetWeld(joint3)
-			local j4,j4a = GetWeld(joint4)
-			SetWeld(joint3,1,1, j3,j3a, j3,Vector3.new(-0.2+(aniangle/4),0,0))
-			SetWeld(joint4,1,1, j4,j4a, j4,Vector3.new(-0.2+(-aniangle/4),0,0))
-			if side == math.pi/2 then
-				local j1,j1a = GetWeld(joint1)
-				SetWeld(joint1,1,1, j1,j1a, j1, Vector3.new(0,0,0.8+(aniangle2/14)))
-			else
-				local j2,j2a = GetWeld(joint2)
-				SetWeld(joint2,1,1, j2,j2a, j2, Vector3.new(0,0,-0.8-(aniangle2/14)))
-			end
 
 			wait(0.025)
 			--if GravPoint < -100 then
-				--bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
-				--local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
-				--Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
-				--break
+			--bg.cframe = CFrame.new(enz2+(towall*-2), enz2) * CFrame.Angles(0,-side,0)
+			--local offset = math.abs((bg.cframe.p.y+enz2.y) - bg.cframe.p.y)
+			--Torsoz.CFrame = CFrame.new(Vector3.new(bg.cframe.p.x,offset,bg.cframe.p.z), enz2) * CFrame.Angles(0,-side,0)
+			--break
 			--end
-
+			print("HWR")
 		end
 
 
@@ -689,22 +542,36 @@ function HWallRun(part, pos, side)
 		HWRGravDrop = false
 		Stand()
 		HWallRunning = false
-		if stamina - (chg*2.5) > 0 then
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
-			stamina = stamina-(chg*2.5)
-			chg = 0
-		else
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
-			stamina = 0
-			chg = 0
+		Space = false
+		while hwd == false do
+			wait(0.02)
+			if htim < 25 and Space == true and hwd == false then
+				print("HWR boost")
+				htim = htim + 1
+				if stamina - (chg*2.5) > 0 then
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					stamina = stamina-(chg*2.5)
+					chg = 0
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					stamina = 0
+					chg = 0
+				end
+				hwd = true
+				hfd = false
+			end
 		end
+		hfd = false
+		htim = 0
+
 	end
 end
 
 function VWR(part, pos)
-	if (part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0 then
+	if ((part.className == "Part" and part.Shape == Enum.PartType.Block) or part.className ~= "Part" and vwrc == 0) and vfd == false and hfd == false then
+		vfd = true
 		print("VWR Activated")
-		print(vwrc)
+		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/2,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/2)
 		flow.Value = flow.Value + 9
 		Standing = false
 		VWallRunning = true
@@ -728,7 +595,7 @@ p.Transparency = 0.3
 		bv.Name = "StaminaBodyObject"
 		bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
 		bv.P = 9000
-		bv.velocity = (dir*(sprint-1))*percent
+		bv.velocity = Vector3.new(0,0,0)
 
 		local bg = Instance.new("BodyGyro", Torsoz)
 		bg.Name = "StaminaBodyObject"
@@ -738,30 +605,13 @@ p.Transparency = 0.3
 		bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0)
 		Torsoz.CFrame = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0)
 
-		local joint1 = Joint3
-		SetWeld(joint1,1,1, NV,NV, Vector3.new(1.4,0.45,-0.1), Vector3.new(-math.pi/3.2,0,math.pi/8))
-
-		local joint2 = Joint4
-		SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.4,0.45,-0.1), Vector3.new(-math.pi/3.2,0,-math.pi/8))
-
-		local joint3 = Joint1
-		SetWeld(joint3,1,1, NV,NV, Vector3.new(0.48,-0.6,-0.1), Vector3.new(0,math.pi/2,0))
-		joint3.C1 = CFrame.new(0,0.7,0.2) * CFrame.Angles(0,math.pi/2,0)
-
-		local joint4 = Joint2
-		SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.48,-0.6,-0.1), Vector3.new(0,math.pi/2,0))
-		joint4.C1 = CFrame.new(0,0.7,0.2) * CFrame.Angles(0,math.pi/2,0)
-
-		local joint5 = Joint5
-		SetWeld(joint5,1,1, NV,NV, Vector3.new(0,1,0), Vector3.new(math.pi/20,0,0))
-
 		local aniangle = 0
 		local aniplus = true
 
-		while VWallRunning == true and stamina > 6 and vwrc == 0 do
+		while VWallRunning == true and stamina > 16 and vwrc == 0 and Space == true do
 			if abort == false then
-				print("hi")
-				stamina = stamina - 6
+				cdb = false
+				stamina = stamina - 15
 				local hitz, enz = RAY(Torsoz.Position, towall*2.1)
 				local hitz2, enz2 = RAY(Torsoz.Position, (CFrame.new(NV,towall)*CFrame.Angles(math.pi/2,0,0)).lookVector*2.4)
 
@@ -775,45 +625,41 @@ p.Transparency = 0.3
 				elseif aniplus == false then
 					aniangle = aniangle - (1.3*(percent+0.2))
 				end
+				if bv.velocity.Y < 20 then
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/1.75, Torsoz.Velocity.Y+3, Torsoz.Velocity.Z/1.75)
+					bv.Velocity = char.HumanoidRootPart.Velocity
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/1.75, Torsoz.Velocity.Y-0.5, Torsoz.Velocity.Z/1.75)
+					bv.Velocity = char.HumanoidRootPart.Velocity
+				end
 
-				bv.velocity = (dir*(sprint-1))*percent
-				if VWRLeft == true then
-					bv.velocity = bv.velocity + ((CFrame.new(NV, towall) * CFrame.Angles(0,math.pi/2,0)).lookVector * (11*percent+5))
-				end
-				if VWRRight == true then
-					bv.velocity = bv.velocity - ((CFrame.new(NV, towall) * CFrame.Angles(0,math.pi/2,0)).lookVector * (11*percent+5))
-				end
+				--(dir*(sprint-1))*percent
 
 				bg.cframe = CFrame.new(posi, posi+towall) * CFrame.Angles((math.pi/5),0,0) * CFrame.Angles(0,aniangle/60,0)
 
-				SetWeld(joint1,1,1, NV,NV, Vector3.new(1.4,0.45,-0.1), Vector3.new(2+aniangle/4,0,0))
-				SetWeld(joint2,1,1, NV,NV, Vector3.new(-1.4,0.45,-0.1), Vector3.new(2+(aniangle/-4),0,0))
-				SetWeld(joint3,1,1, NV,NV, Vector3.new(0.51,-0.75,-(aniangle/30)), Vector3.new(0,math.pi/2,(aniangle/8)-0.3))
-				SetWeld(joint4,1,1, NV,NV, Vector3.new(-0.51,-0.75,(aniangle/30)), Vector3.new(0,math.pi/2,(-aniangle/8)-0.3))
-
 				if hitz == nil then
-					local lv = Torsoz.Position + (Torsoz.CFrame.lookVector*100)
-					Torsoz.CFrame = CFrame.new(Torsoz.Position, Vector3.new(lv.x,Torsoz.Position.y,lv.z))
+					--local lv = Torsoz.Position + (Torsoz.CFrame.lookVector*100)
+					--Torsoz.CFrame = CFrame.new(Torsoz.Position, Vector3.new(lv.x,Torsoz.Position.y,lv.z))
 					break
 				end
 
-				if hitz2 ~= nil then
-					percent = 0
-					VWallRunning = "Falling"
-					Action = "VWRFalling"
-					GravPoint = -7
-					break
-				end
+				--if hitz2 ~= nil then
+				--percent = 0
+				--VWallRunning = "Falling"
+				--Action = "VWRFalling"
+				--GravPoint = -7
+				--break
+				--end
 
 				wait(0.02)
-				percent = percent - 0.028
 				if percent <= 0.15 then
 					VWallRunning = "Falling"
 					Action = "VWRFalling"
 				end
+				print("VWR")
 			end
 		end
-		if stamina < 7 then
+		if stamina < 16 then
 			print("e")
 			vwrc = 60
 		end
@@ -825,15 +671,27 @@ p.Transparency = 0.3
 		bg:remove()
 		VWallRunning = false
 		Stand()
-		if stamina - (chg*2.5) > 0 then
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
-			stamina = stamina-(chg*2.5)
-			chg = 0
-		else
-			char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
-			stamina = 0
-			chg = 0
+		Space = false
+		while vtim < 25 and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall and cdb == false do
+			wait(0.02)
+			vtim = vtim + 1
+			if Space == true and cdb == false then
+				print("VWR boost")
+				if stamina - (chg*2.5) > 0 then
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
+					stamina = stamina-(chg*2.5)
+					chg = 0
+				else
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					stamina = 0
+					chg = 0
+				end
+				cdb = true
+				vfd = false
+			end
 		end
+		vtim = 0
+		vfd = false
 	end
 end
 
@@ -857,19 +715,6 @@ function Slide(pos)
 	local joint3 = Joint3
 	local joint4 = Joint4
 	local joint5 = Joint5
-	local j1,j1a = GetWeld(joint1)
-	local j2,j2a = GetWeld(joint2)
-
-	SetWeld(joint1,1,1, NV,NV, Vector3.new(j1.x,j1.y,j1.z), Vector3.new(j1a.x,math.pi/2,j1a.z))
-	joint1.C1 = CFrame.new(0,1,0) * CFrame.Angles(0,math.pi/2,0)
-	SetWeld(joint2,1,1, NV,NV, Vector3.new(j2.x,j2.y,j2.z), Vector3.new(j2a.x,math.pi/2,j2a.z))
-	joint2.C1 = CFrame.new(0,1,0) * CFrame.Angles(0,math.pi/2,0)
-
-	local j1,j1a = GetWeld(joint1)
-	local j2,j2a = GetWeld(joint2)
-	local j3,j3a = GetWeld(joint3)
-	local j4,j4a = GetWeld(joint4)
-	local j5,j5a = GetWeld(joint5)
 
 	local count = 0
 	local lastpos
@@ -882,13 +727,6 @@ function Slide(pos)
 		local ghitz, genz = RAY(Torsoz.Position, Vector3.new(0,-2.6,0))
 		bv.velocity = dir*spd + Vector3.new(0,GravPoint,0)
 
-		if count <= 5 then
-			SetWeld(joint1,count,5, j1,j1a, Vector3.new(0.5,-0.8,-0.15), Vector3.new(0,(math.pi/2)+0.1,-0.4))
-			SetWeld(joint2,count,5, j2,j2a, Vector3.new(-0.5,-1,0), Vector3.new(0,(math.pi/2)-0.4,0))
-			SetWeld(joint3,count,5, j3,j3a, Vector3.new(1.5,0.5,0), Vector3.new(-0.7,-0.24,math.pi/5))
-			SetWeld(joint4,count,5, j4,j4a, Vector3.new(-1.5,0.5,0), Vector3.new(-0.1,0,-math.pi/1.5))
-			SetWeld(joint5,count,5, j5,j5a, Vector3.new(0,1,0), Vector3.new(-0.5,-0.2,0))
-		end
 
 		if (hitz1 ~= nil and hitz1.CanCollide == true) or (hitz2 ~= nil and  hitz2.CanCollide == true) then
 			bv:remove()
@@ -912,17 +750,7 @@ function Slide(pos)
 	end
 
 	if Sliding == false then
-		local j1,j1a = GetWeld(joint1)
-		local j2,j2a = GetWeld(joint2)
-		local j3,j3a = GetWeld(joint3)
-		local j4,j4a = GetWeld(joint4)
-		local j5,j5a = GetWeld(joint5)
 		for i = 1, 4 do
-			SetWeld(joint1,i,4, j1,j1a, Vector3.new(0.5,-1,0), Vector3.new(0,math.pi/2,0))
-			SetWeld(joint2,i,4, j2,j2a, Vector3.new(-0.5,-1,0), Vector3.new(0,math.pi/2,0))
-			SetWeld(joint3,i,4, j3,j3a, Vector3.new(1.5,0.5,0), NV)
-			SetWeld(joint4,i,4, j4,j4a, Vector3.new(-1.5,0.5,0), NV)
-			SetWeld(joint5,i,4, j5,j5a, Vector3.new(0,1,0), NV)
 			local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-2.6,0))
 			bg.cframe = CFrame.new(NV, dir) * CFrame.Angles((math.pi/2.2) - ((math.pi/2.2)/4*i),0.24 - (0.24/4*i),0)
 			bv.velocity = dir*spd + Vector3.new(0,GravPoint,0)
@@ -954,7 +782,8 @@ function KD(key)
 			Space = true
 
 			local ghitz, genz = RAY(Torsoz.Position, Vector3.new(0,-3.7,0))
-			local hitz, enz = RAY(Torsoz.Position+Vector3.new(0,1.1,0), Torsoz.CFrame.lookVector*2.3)
+			--+Vector3.new(0,1.1,0)
+			local hitz, enz = RAY(Torsoz.Position, Torsoz.CFrame.lookVector*5)
 			local righthitz, rightenz
 			local lefthitz, leftenz
 
@@ -979,9 +808,7 @@ function KD(key)
 				if hitz ~= nil then
 					if Action == "Standing" and VWRCooldown == 0 then
 						if hitz2 == nil or hitz2.CanCollide == false then
-							if Torsoz.Velocity.y > -50 then
-								VWR(hitz, enz)
-							end
+							VWR(hitz, enz)
 						end
 					end
 				end
@@ -1076,16 +903,6 @@ end
 mouse.KeyDown:connect(function(key) KD(key) end)
 mouse.KeyUp:connect(function(key) KU(key) end)
 
-Joint1 = Instance.new("Snap", Torsoz)
-GetWeld(Joint1)
-Joint2 = Instance.new("Snap", Torsoz)
-GetWeld(Joint2)
-Joint3 = Instance.new("Snap", Torsoz)
-GetWeld(Joint3)
-Joint4 = Instance.new("Snap", Torsoz)
-GetWeld(Joint4)
-Joint5 = Instance.new("Snap", Torsoz)
-GetWeld(Joint5)
 Stand()
 
 local animatebg = Instance.new("BodyGyro")
@@ -1137,12 +954,8 @@ game:service("RunService").Stepped:connect(function()
 	end
 
 	local hitz, enz = RAY(Torsoz.Position, Vector3.new(0,-3.9,0))
-	if Shift == true and GravAction ~= "Falling" then
-		Hu.WalkSpeed = sprint
-	elseif Shift == false then
-		Hu.WalkSpeed = 16
-	elseif GravAction == "Falling" then
-		Hu.WalkSpeed = 0
+	if GravAction ~= "Falling" then
+		Hu.WalkSpeed = 16+(chg/3.125)
 	end
 	if (FOV >= 70 and FOV < 74) and Vector3.new(Torsoz.Velocity.x,0,Torsoz.Velocity.z).magnitude > 25 then
 		FOV = FOV + 1
@@ -1197,7 +1010,7 @@ game:service("RunService").Stepped:connect(function()
 		Shift = false
 	end
 	if Shift == true then
-		if Space == true and (Action == "Standing" and char.Humanoid:GetState() ~= Enum.HumanoidStateType.Freefall) then
+		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
 			if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(game.Workspace.CurrentCamera.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(game.Workspace.CurrentCamera.CFrame.LookVector.Z*(chg*0.75)))
 				stamina = stamina-(chg*2.5)
@@ -1214,10 +1027,12 @@ game:service("RunService").Stepped:connect(function()
 		if chg <= 98 then
 			chg = chg+2
 		end
+
 	else
-		if chg >= 2 then
-			chg = chg-2
+		if chg >= 3 then
+			chg = chg - 3
 		end
+
 	end
 	if HWallRunning == true then
 		if Shift == true then
@@ -1242,11 +1057,6 @@ game:service("RunService").Stepped:connect(function()
 
 		end
 		if Action == "Standing" then
-			animspeed = 0.4
-			SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/4.85,0,0))
-			SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/4.85,0,0))
-			SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(animangle/3.5,0,0))
-			SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new(-animangle/3.5,0,0))
 		end
 	elseif Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 12 and Action ~= "Sliding" then
 		if stamina < maxstamina then
@@ -1258,19 +1068,10 @@ game:service("RunService").Stepped:connect(function()
 
 		end
 		if Action == "Standing" then
-			animspeed = 0.3
-			SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/7,0,0))
-			SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/7,0,0))
-			SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(animangle/5,0,0))
-			SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new(-animangle/5,0,0))
 		end
 	elseif Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude < 2 then
 		animspeed = 0.05
 		if Action == "Standing" then
-			SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/38,0,0))
-			SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/38,0,0))
-			SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new(animangle/30,0,0))
-			SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new(-animangle/30,0,0))
 		end
 		if stamina < maxstamina then
 			if Sitting == false then
@@ -1285,17 +1086,13 @@ game:service("RunService").Stepped:connect(function()
 
 		end
 	end
-	
+
 
 	if hitz == nil then
 		if Torsoz.Velocity.y > 1 or (Torsoz.Velocity.y < -1 and Torsoz.Velocity.y > -90) then
 			if Action == "Standing" then
 				GravAction = "Rising"
 				animspeed = 0.05
-				SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.5,-1,0), Vector3.new(-animangle/38,0,0))
-				SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.5,-1,0), Vector3.new(animangle/38,0,0))
-				SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.5,0.5,0), Vector3.new((math.pi-0.2)+(animangle/30),0,0))
-				SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.5,0.5,0), Vector3.new((math.pi-0.2)+(-animangle/30),0,0))
 				if animatebg.Parent ~= nil then
 					animatebg.Parent = Torsoz
 					animatebg.maxTorque = Vector3.new(math.huge,10000,math.huge)
@@ -1319,10 +1116,6 @@ game:service("RunService").Stepped:connect(function()
 					animatebg.maxTorque = Vector3.new(math.huge,10000,math.huge)
 					local lokvec = Torsoz.CFrame.lookVector*100
 					animatebg.cframe = CFrame.new(NV, Vector3.new(lokvec.x,0,lokvec.z)) * CFrame.Angles(-math.pi/11,animangle/70,0)
-					SetWeld(Joint1,1,1, NV,NV, Vector3.new(0.45,-0.8,0), Vector3.new((animangle/27)-0.3,0,0.18))
-					SetWeld(Joint2,1,1, NV,NV, Vector3.new(-0.45,-0.8,0), Vector3.new((-animangle/27)-0.3,0,-0.18))
-					SetWeld(Joint3,1,1, NV,NV, Vector3.new(1.4,0.5,0), Vector3.new((math.pi+0.2)+(animangle/26),0,0.18))
-					SetWeld(Joint4,1,1, NV,NV, Vector3.new(-1.4,0.5,0), Vector3.new((math.pi+0.2)+(-animangle/26),0,-0.18))
 				end
 			end
 		elseif hitz2.CanCollide == true then
