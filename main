@@ -108,8 +108,8 @@ function runqw(timqw)
 		end
 		char.Humanoid.WalkSpeed = 0
 		char.HumanoidRootPart.CFrame = char.HumanoidRootPart.CFrame+Vector3.new(xqw*timqw,0,zqw*timqw)
-		xqw = xqw/1.0025
-		zqw = zqw/1.0025
+		xqw = xqw/1.025
+		zqw = zqw/1.025
 	end
 end
 char.Humanoid.FreeFalling:Connect(hiqw)
