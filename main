@@ -837,4 +837,5 @@ game.Players.LocalPlayer.CharacterAdded:connect(function()
 	Hu = script.Parent:WaitForChild("Humanoid")
 	Torsoz = script.Parent:WaitForChild("HumanoidRootPart")
 	char = script.Parent
+	CreateGui()
 end)
