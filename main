@@ -394,7 +394,7 @@ function VWR(part, pos)
 		vfd = true
 		print("VWR Activated")
 		st.Text = "Climbing"
-		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/2,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/2)
+		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/5,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/5)
 		Standing = false
 		VWallRunning = true
 		Action = "VWallRunning"
@@ -448,10 +448,10 @@ p.Transparency = 0.3
 					aniangle = aniangle - (1.3*(percent+0.2))
 				end
 				if bv.velocity.Y < 20 then
-					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/1.75, Torsoz.Velocity.Y+3, Torsoz.Velocity.Z/1.75)
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/5, Torsoz.Velocity.Y+3, Torsoz.Velocity.Z/5)
 					bv.Velocity = char.HumanoidRootPart.Velocity
 				else
-					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/1.75, Torsoz.Velocity.Y-0.5, Torsoz.Velocity.Z/1.75)
+					char.HumanoidRootPart.Velocity = Vector3.new(Torsoz.Velocity.X/5, Torsoz.Velocity.Y-0.5, Torsoz.Velocity.Z/5)
 					bv.Velocity = char.HumanoidRootPart.Velocity
 				end
 
