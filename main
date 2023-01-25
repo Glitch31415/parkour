@@ -834,7 +834,7 @@ p.Transparency = 0.3
 	end)
 game.Players.LocalPlayer.CharacterAdded:connect(function()
 	script.Parent = game.Players.LocalPlayer.Character or game.Workspace[game.Players.LocalPlayer.Name] or game.Players.LocalPlayer.CharacterAdded:Wait()
-	Hu = script.Parent.Humanoid
-	Torsoz = script.Parent.HumanoidRootPart
+	Hu = script.Parent:WaitForChild("Humanoid")
+	Torsoz = script.Parent:WaitForChild("HumanoidRootPart")
 	char = script.Parent
 end)
