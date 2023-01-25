@@ -710,6 +710,8 @@ game:service("RunService").Stepped:connect(function()
 			Hu.WalkSpeed = 16+(chg/3.125)
 		end
 	end
+	workspace.Gravity = 196.2
+	char.Humanoid.JumpPower = 50.145
 	GravAction = "Idle"
 	hue = hue + 3
 	hue = hue % 360
@@ -909,5 +911,7 @@ game.Players.LocalPlayer.CharacterAdded:connect(function()
 	Hu = script.Parent:WaitForChild("Humanoid")
 	Torsoz = script.Parent:WaitForChild("HumanoidRootPart")
 	char = script.Parent
+	char.Humanoid.JumpPower = 50.145
+	workspace.Gravity = 196.2
 	CreateGui()
 end)
