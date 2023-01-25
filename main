@@ -487,6 +487,7 @@ p.Transparency = 0.3
 		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
 		while vtim < 8 and cdb == false do
 			wait(0.02)
+			Hu:WalkSpeed = 10
 			vtim = vtim + 1
 			print(vtim)
 			if Space == true and cdb == false then
