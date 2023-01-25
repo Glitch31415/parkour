@@ -394,7 +394,8 @@ function VWR(part, pos)
 		vfd = true
 		print("VWR Activated")
 		st.Text = "Climbing"
-		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/5,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/5)
+		--char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/5,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/5)
+		char.HumanoidRootPart.Velocity = Vector3.new(0,char.HumanoidRootPart.Velocity.Y,0)
 		Standing = false
 		VWallRunning = true
 		Action = "VWallRunning"
