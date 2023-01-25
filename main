@@ -90,7 +90,7 @@ function CreateGui()
 	sf = Instance.new("Frame", g)
 	sf.BackgroundTransparency = 1
 	sf.Name = "statusframe"
-	sf.Position = UDim2.new(0.5,0,1,-150)
+	sf.Position = UDim2.new(0.25,0,1,-150)
 	sf.Size = UDim2.new(0.5,0,0,150)
 	st = Instance.new("TextLabel", sf)
 	st.Text = ""
