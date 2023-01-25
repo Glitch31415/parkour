@@ -87,7 +87,19 @@ function CreateGui()
 	end
 	g = Instance.new("ScreenGui", player.PlayerGui)
 	g.Name = "staminaGui"
-
+	sf = Instance.new("Frame", g)
+	sf.BackgroundTransparency = 1
+	sf.Name = "statusframe"
+	sf.Position = UDim2.new(0.5,0,1,-150)
+	sf.Size = UDim2.new(0.5,0,0,150)
+	st = Instance.new("TextLabel", sf)
+	st.Size = UDim2.new(1,0,1,0)
+	st.BackgroundTransparency = 1
+	st.TextColor3 = Color3.new(0.75,0.75,0.75)
+	st.TextStrokeColor3 = Color3.new(0.75,0.75,0.75)
+	st.TextStrokeTransparency = 0
+	st.FontSize = 12
+	
 	c = Instance.new("Frame", g)
 	c.Visible = false
 	c.Size = UDim2.new(0,150,0.5,0)
@@ -203,6 +215,7 @@ function HWallRun(part, pos, side)
 		Hu:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
 		Hu:ChangeState(Enum.HumanoidStateType.Running)
+		st.Text = "Wallrunning"
 		hfd = true
 		Standing = false
 		HWallRunning = true
@@ -337,6 +350,7 @@ function HWallRun(part, pos, side)
 
 		HWRGravDrop = false
 		Stand()
+		st.Text = ""
 		HWallRunning = false
 		Space = false
 		Hu:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
@@ -378,6 +392,7 @@ function VWR(part, pos)
 		Hu:ChangeState(Enum.HumanoidStateType.Climbing)
 		vfd = true
 		print("VWR Activated")
+		st.Text = "Climbing"
 		char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X/2,char.HumanoidRootPart.Velocity.Y,char.HumanoidRootPart.Velocity.Z/2)
 		Standing = false
 		VWallRunning = true
@@ -481,6 +496,7 @@ p.Transparency = 0.3
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Running,true)
 		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
 		Torsoz.CFrame = Torsoz.CFrame + Vector3.new(0, 2.5, 0)
+		st.Text = ""
 		while vtim < 8 and cdb == false do
 			wait(0.02)
 			Hu.WalkSpeed = 10
@@ -508,6 +524,7 @@ p.Transparency = 0.3
 end
 
 function Slide(pos)
+	st.Text = "Sliding"
 	Action = "Sliding"
 	Sliding = true
 	GravPoint = Torsoz.Velocity.y
@@ -578,6 +595,7 @@ function Slide(pos)
 	bg:remove()
 	SlideCooldown = 10
 	Stand()
+	st.Text = ""
 end
 
 function KD(key)
