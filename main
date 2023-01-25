@@ -355,11 +355,11 @@ function HWallRun(part, pos, side)
 
 
 				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
 					stamina = stamina-(chg*2.5)
 					chg = 0
 				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
 					stamina = 0
 					chg = 0
 				end
@@ -487,17 +487,17 @@ p.Transparency = 0.3
 		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
 		while vtim < 8 and cdb == false do
 			wait(0.02)
-			Hu:WalkSpeed = 10
+			Hu.WalkSpeed = 10
 			vtim = vtim + 1
 			print(vtim)
 			if Space == true and cdb == false then
 				print("VWR boost")
 				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
 					stamina = stamina-(chg*2.5)
 					chg = 0
 				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
 					stamina = 0
 					chg = 0
 				end
@@ -637,7 +637,7 @@ local animatebgcount = 0
 
 game:service("RunService").Stepped:connect(function()
 	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
-		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.01
+		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
 	else
 		if GravAction ~= "Falling" then
 			Hu.WalkSpeed = 16+(chg/3.125)
@@ -696,11 +696,11 @@ game:service("RunService").Stepped:connect(function()
 	if Shift == true then
 		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
 			if stamina - (chg*2.5) > 0 then
-				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.75)),char.HumanoidRootPart.Velocity.Y+(0.75*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.75)))
+				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
 				stamina = stamina-(chg*2.5)
 				chg = 0
 			else
-				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.75)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.75),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.75)))
+				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
 				stamina = 0
 				chg = 0
 			end
