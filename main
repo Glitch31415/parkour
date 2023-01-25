@@ -480,7 +480,7 @@ p.Transparency = 0.3
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
 		Hu:SetStateEnabled(Enum.HumanoidStateType.Running,true)
 		-- and char.Humanoid:GetState() == Enum.HumanoidStateType.Freefall
-		Torsoz.Position = Vector3.new(Torsoz.Position.X, Torsoz.Position.Y+7.5, Torsoz.Position.Z)
+		Torsoz.CFrame = Vector3.new(Torsoz.CFrame.X, Torsoz.CFrame.Y+2.5, Torsoz.CFrame.Z)
 		while vtim < 8 and cdb == false do
 			wait(0.02)
 			Hu.WalkSpeed = 10
