@@ -913,5 +913,7 @@ game.Players.LocalPlayer.CharacterAdded:connect(function()
 	char = script.Parent
 	char.Humanoid.JumpPower = 50.145
 	workspace.Gravity = 196.2
+	Hu:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+	Hu:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
 	CreateGui()
 end)
