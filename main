@@ -1,3 +1,4 @@
+function runpk()
 print("waiting for " .. game.Players.LocalPlayer.Name)
 script.Parent = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 print("i waited")
@@ -832,6 +833,7 @@ game:service("RunService").Stepped:connect(function()
 	PrevGravAction = GravAction
 	Calculate()
 end)
+end
 game.Players.LocalPlayer.CharacterAdded:connect(function()
-	CreateGui()
+	runpk()
 end)
