@@ -684,7 +684,7 @@ function KD(key)
 
 		elseif key == string.char(48) then
 			Shift = true
-		elseif key == "e" then
+		elseif key == "l" then
 			Sliding = true
 			Slide()
 		end
@@ -696,7 +696,7 @@ function KU(key)
 		Space = false
 	elseif key == string.char(48) then
 		Shift = false
-	elseif key == "e" then
+	elseif key == "l" then
 		Sliding = false
 	elseif key == "a" then
 		VWRLeft = false
