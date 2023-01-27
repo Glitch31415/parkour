@@ -501,7 +501,6 @@ p.Transparency = 0.3
 		st.Text = ""
 		while vtim < 8 and cdb == false do
 			wait(0.02)
-			Hu.WalkSpeed = 10
 			vtim = vtim + 1
 			print(vtim)
 			if Space == true and cdb == false then
@@ -724,7 +723,12 @@ local fadetab2 = {}
 local animatebgcount = 0
 game:service("RunService").RenderStepped:connect(function()
 	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
-		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
+		if (16+(chg/3.125))>((math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))) then
+				Hu.WalkSpeed = 16+(chg/3.125)
+		else
+				Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
+		end
+
 	else
 		if GravAction ~= "Falling" then
 			Hu.WalkSpeed = 16+(chg/3.125)
@@ -732,13 +736,7 @@ game:service("RunService").RenderStepped:connect(function()
 	end
 end)
 game:service("RunService").Stepped:connect(function()
-	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
-		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
-	else
-		if GravAction ~= "Falling" then
-			Hu.WalkSpeed = 16+(chg/3.125)
-		end
-	end
+	
 	workspace.Gravity = 196.2
 	char.Humanoid.JumpPower = 50.145
 	GravAction = "Idle"
@@ -791,7 +789,7 @@ game:service("RunService").Stepped:connect(function()
 	if stamina < 1 then
 		Shift = false
 	end
-	if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
+	if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping then
 			if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
 				stamina = stamina-(chg*2.5)
@@ -811,8 +809,8 @@ game:service("RunService").Stepped:connect(function()
 		end
 
 	else
-		if chg >= 3 then
-			chg = chg - 3
+		if chg >= 2 then
+			chg = chg - 2
 		end
 
 	end
