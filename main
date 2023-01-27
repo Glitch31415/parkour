@@ -783,8 +783,7 @@ game:service("RunService").Stepped:connect(function()
 	if stamina < 1 then
 		Shift = false
 	end
-	if Shift == true then
-		if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
+	if char.Humanoid:GetState() == Enum.HumanoidStateType.Jumping and Space == true then
 			if stamina - (chg*2.5) > 0 then
 				char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
 				stamina = stamina-(chg*2.5)
@@ -794,7 +793,8 @@ game:service("RunService").Stepped:connect(function()
 				stamina = 0
 				chg = 0
 			end
-		end
+	end
+	if Shift == true then
 		if Vector3.new(Torsoz.Velocity.x, 0, Torsoz.Velocity.z).magnitude > 20 then
 			stamina = stamina - 1
 		end
