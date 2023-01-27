@@ -722,7 +722,15 @@ local tickoffset = tick()
 local fadetab = {}
 local fadetab2 = {}
 local animatebgcount = 0
-
+game:service("RunService").RenderStepped:connect(function()
+	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
+		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
+	else
+		if GravAction ~= "Falling" then
+			Hu.WalkSpeed = 16+(chg/3.125)
+		end
+	end
+end)
 game:service("RunService").Stepped:connect(function()
 	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
 		Hu.WalkSpeed = (math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))/1.0025
