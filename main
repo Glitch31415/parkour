@@ -724,8 +724,7 @@ local tickoffset = tick()
 local fadetab = {}
 local fadetab2 = {}
 local animatebgcount = 0
-while 0==0 do
-	task.wait(0.0166666667)
+game:service("RunService").Stepped:connect(function()
 	if (Hu:GetState() == Enum.HumanoidStateType.Freefall) then
 		if (16+(chg/3.125))>((math.sqrt((math.abs(Torsoz.Velocity.X)^2)+(math.abs(Torsoz.Velocity.Z)^2)))) then
 				Hu.WalkSpeed = 16+(chg/3.125)
@@ -933,9 +932,6 @@ while 0==0 do
 	end
 	PrevGravAction = GravAction
 	Calculate()
-end
-game:service("RunService").Stepped:connect(function()
-	
 end)
 game.Players.LocalPlayer.CharacterAdded:connect(function()
 	script.Parent = game.Players.LocalPlayer.Character or game.Workspace[game.Players.LocalPlayer.Name] or game.Players.LocalPlayer.CharacterAdded:Wait()
