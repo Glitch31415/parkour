@@ -609,7 +609,7 @@ function KD(key)
 
 			local ghitz, genz = RAY(Torsoz.Position, Vector3.new(0,-3.7,0))
 			--+Vector3.new(0,1.1,0)
-			local hitz, enz = RAY(Torsoz.Position, Torsoz.CFrame.lookVector*3.75)
+			local hitz, enz = RAY(Torsoz.Position, Torsoz.CFrame.lookVector*2.5)
 			local righthitz, rightenz
 			local lefthitz, leftenz
 
