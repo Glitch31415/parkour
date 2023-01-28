@@ -738,7 +738,8 @@ game:service("RunService").Stepped:connect(function()
 		end
 	end
 	game.Workspace.Gravity = 196.2
-	Hu.JumpPower = 50.145
+	Hu.JumpPower = 50
+	Hu.JumpHeight = 6.37
 	GravAction = "Idle"
 	hue = hue + 3
 	hue = hue % 360
