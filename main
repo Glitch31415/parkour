@@ -363,16 +363,16 @@ function HWallRun(part, pos, side)
 			if htim < 8 and Space == true and hwd == false then
 				print("HWR boost")
 
-
-				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
-					stamina = stamina-(chg*2.5)
-					chg = 0
-				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
-					stamina = 0
-					chg = 0
-				end
+				Hu:ChangeState(Enum.HumanoidStateType.Jumping)
+				--if stamina - (chg*2.5) > 0 then
+					--char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
+					--stamina = stamina-(chg*2.5)
+					--chg = 0
+				--else
+					--char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
+					--stamina = 0
+					--chg = 0
+				--end
 				hwd = true
 				hfd = false
 			end
@@ -505,15 +505,16 @@ p.Transparency = 0.3
 			print(vtim)
 			if Space == true and cdb == false then
 				print("VWR boost")
-				if stamina - (chg*2.5) > 0 then
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
-					stamina = stamina-(chg*2.5)
-					chg = 0
-				else
-					char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
-					stamina = 0
-					chg = 0
-				end
+				Hu:ChangeState(Enum.HumanoidStateType.Jumping)
+				--if stamina - (chg*2.5) > 0 then
+					--char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*(chg*0.65)),char.HumanoidRootPart.Velocity.Y+(0.65*chg),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*(chg*0.65)))
+					--stamina = stamina-(chg*2.5)
+					--chg = 0
+				--else
+					--char.HumanoidRootPart.Velocity = Vector3.new(char.HumanoidRootPart.Velocity.X+(Torsoz.CFrame.LookVector.X*((stamina*0.4)*0.65)),char.HumanoidRootPart.Velocity.Y+((stamina*0.4)*0.65),char.HumanoidRootPart.Velocity.Z+(Torsoz.CFrame.LookVector.Z*((stamina*0.4)*0.65)))
+					--stamina = 0
+					--chg = 0
+				--end
 				cdb = true
 				vfd = false
 			end
