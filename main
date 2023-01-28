@@ -733,6 +733,7 @@ game:service("RunService").Stepped:connect(function()
 		end
 
 	else
+	Hu.WalkSpeed = 16+(chg/3.125)
 		if GravAction ~= "Falling" then
 			Hu.WalkSpeed = 16+(chg/3.125)
 		end
