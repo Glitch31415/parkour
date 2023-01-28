@@ -226,6 +226,7 @@ function HWallRun(part, pos, side)
 		local dir, dirc = FindSurface(part, pos)
 		towall = -dir
 		dir = (CFrame.new(NV, dir) * CFrame.Angles(0,side,0)).lookVector
+		if dir ~= nil then
 		local bv = Instance.new("BodyVelocity", Torsoz)
 		bv.Name = "StaminaBodyObject"
 		bv.maxForce = Vector3.new(math.huge,math.huge,math.huge)
@@ -383,6 +384,7 @@ function HWallRun(part, pos, side)
 		hfd = false
 		htim = 0
 
+		end
 	end
 end
 
