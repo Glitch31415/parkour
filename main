@@ -737,8 +737,8 @@ game:service("RunService").Stepped:connect(function()
 			Hu.WalkSpeed = 16+(chg/3.125)
 		end
 	end
-	workspace.Gravity = 196.2
-	char.Humanoid.JumpPower = 50.145
+	game.Workspace.Gravity = 196.2
+	Hu.JumpPower = 50.145
 	GravAction = "Idle"
 	hue = hue + 3
 	hue = hue % 360
